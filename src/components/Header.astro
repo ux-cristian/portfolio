@@ -1,7 +1,8 @@
 ---
-import Tab from "../uikit/Tab.astro";
+import Tab from "../uikit/atoms/Tab.astro";
 ---
 
-<header>
-    <Tab></Tab>
+<header class="flex gap-4 p-4 bg-gray-100">
+    <Tab href="#" tabId="a">Tab atom a</Tab>
+    <Tab href="#" tabId="b" isSelected>Tab atom b</Tab>
 </header>
