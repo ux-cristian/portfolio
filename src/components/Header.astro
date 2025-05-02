@@ -1,8 +1,29 @@
 ---
-import Tab from "../uikit/atoms/Tab.astro";
----
+import Container from "../layouts/Container.astro";
 
-<header class="flex gap-4 p-4 bg-gray-100">
-    <Tab href="#" tabId="a">Tab atom a</Tab>
-    <Tab href="#" tabId="b" isSelected>Tab atom b</Tab>
+import { Image } from "astro:assets";
+import logo from "../assets/logo.svg";
+
+import Tab from "../uikit/atoms/Tab.astro";
+import Button from "../uikit/atoms/Button.astro";
+---
+<!--TODO: 
+1. Funcionalidad de cada tab seleccionarse cuando identifique una sección. 
+2. Responsive design (menú hamburguesa)
+3. Ir a inicio cuando se precione el logo
+4. Refactorizar colores
+-->
+<header class="px-8 bg-sky-100/50 backdrop-blur-lg">
+  <Container>
+    <Image src={logo} alt="logo del portafolio" />
+    <div class="flex gap-2 items-center">
+      <Tab href="#" tabId="a">Sobre mí</Tab>
+      <Tab href="#" tabId="b">Experiencia</Tab>
+      <Tab href="#" tabId="c">Proyectos</Tab>
+      <Tab href="#" tabId="d">Ver CV</Tab>
+      <div class="ml-3">
+        <Button>¡Hablemos!</Button>
+      </div>
+    </div>
+  </Container>
 </header>
