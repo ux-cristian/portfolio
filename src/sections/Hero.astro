@@ -1,11 +1,18 @@
 ---
+import TyperwriterEffect from "../components/TyperwriterEffect.astro";
 import Container from "../layouts/Container.astro";
 ---
 
-<section class="flex py-20 w-full bg-sky-100">
+<section class="flex pt-12 pb-24 w-full bg-gradient-to-t from-primary-200 to-primary-100">
   <Container>
-    <div class="flex w-full items-center border-2 border-sky-500">
-      <p class="w-full py-10 font-sans text-5xl text-center bg-sky-200">Hero</p>
+    <div class="flex flex-col w-full gap-5 items-center">
+      <h2 class="text-center text-2xl tracking-widest font-medium text-gray-800">¡HOLA! SOY CRISTIAN NARVAEZ</h2>
+      <h1 class="text-center text-7xl font-semibold text-gray-800">Diseñador UX</h1>
+      <span class="text-center text-4xl font-medium text-gray-800">¿List@ para que</span>
+      <div class="flex items-center justify-center gap-2">
+        <TyperwriterEffect words={["imaginemos", "diseñemos", "implementemos"]}/>
+        <span class="text-center text-4xl font-medium text-gray-800">hoy?</span>
+      </div>
     </div>
   </Container>
 </section>
