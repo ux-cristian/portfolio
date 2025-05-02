@@ -1,0 +1,55 @@
+---
+const {
+  words = ["Astro", "Desarrollo", "Web", "Componentes"],
+  typingSpeed = 150,
+  deletingSpeed = 50,
+  delayAfterWord = 2000,
+} = Astro.props;
+---
+
+<div class="flex bg-primary-600">
+  <span id="typed-text" class="text-4xl text-primary-100"></span>
+  <span class="text-4xl text-primary-100">_</span>
+</div>
+
+<script define:vars={{ words, typingSpeed, deletingSpeed, delayAfterWord }}>
+  document.addEventListener("DOMContentLoaded", function () {
+    const typedTextElement = document.querySelector("#typed-text");
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let currentText = "";
+
+    function type() {
+      const currentWord = words[wordIndex];
+
+      if (isDeleting) {
+        currentText = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        currentText = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+      }
+
+      if (typedTextElement) {
+        typedTextElement.textContent = currentText;
+      }
+
+      let typeSpeed = isDeleting ? deletingSpeed : typingSpeed;
+
+      if (!isDeleting && charIndex === currentWord.length) {
+        typeSpeed = delayAfterWord;
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+      }
+
+      setTimeout(type, typeSpeed);
+    }
+
+    if (words.length) {
+      setTimeout(type, 1000);
+    }
+  });
+</script>
