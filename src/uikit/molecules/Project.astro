@@ -1,0 +1,26 @@
+---
+import Image from "astro/components/Image.astro";
+---
+<!--TODO:
+1. Refactorizar el componente para que reciba props y no tenga que estar duplicando el código.
+2. Cambiar el href por el componente button.
+-->
+<div class="flex flex-col rounded-xl bg-gray-100 overflow-clip">
+  <Image
+    src="/images/projects/astro-landing-page.png"
+    alt="Astro Landing Page"
+    width={80}
+    height={400}
+    class="bg-primary-300 w-full h-60"
+  />
+  <div class="flex flex-col px-6 py-8 gap-2">
+    <span class="font-sans text-xl">Categoria</span>
+    <h3 class="font-sans text-3xl">Titulo del proyecto</h3>
+    <p class="font-sans text-lg mt-2">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation.
+    </p>
+    <a href="#" class="text-blue-500 hover:underline mt-4">Ver proyecto</a>
+  </div>
+</div>
