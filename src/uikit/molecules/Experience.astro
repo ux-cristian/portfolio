@@ -1,0 +1,27 @@
+---
+interface ExperienceProps {
+    title: string;
+    company: string;
+    startDate: string;
+    endDate: string;
+    description: string;
+}
+
+const { title, company, startDate, endDate, description } = Astro.props;
+---
+
+<div class="flex gap-6 md:pl-4">
+    <div class="flex flex-col items-center pt-3 h-full">
+        <div class="h-4 w-4 bg-primary-600 rounded-full z-10"></div>
+        <div class="w-0.5 h-full bg-gray-400 rounded-full -m-0.5"></div>
+    </div>
+    <div class="flex flex-col pb-6 gap-4 md:flex-row">
+        <div class="flex flex-col gap-2 w-full">
+            <h3 class="font-sans text-3xl font-semibold text-primary-600">{title}</h3>
+            <span class="font-sans text-3xl font-medium text-gray-700">{company}</span>
+            <span class="font-sans text-lg font-medium text-gray-700">{startDate} - {endDate}</span>
+        </div>
+        <p class="font-sans text-xl text-gray-700 w-full">{description}</p>
+    </div>
+</div>
+
