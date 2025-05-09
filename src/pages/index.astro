@@ -6,12 +6,14 @@ import About from '../sections/About.astro';
 import WorkExperience from '../sections/WorkExperience.astro';
 import Projects from '../sections/Projects.astro';
 import Footer from '../sections/Footer.astro';
+import InfiniteCarrousel from '../components/InfiniteCarrousel.astro';
 ---
 
 <Layout>
     <Header />
     <Hero />
     <About />
+    <InfiniteCarrousel words={['hola', 'amiguitos']}/>
     <WorkExperience />
     <Projects />
     <Footer />
