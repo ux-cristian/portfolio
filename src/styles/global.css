@@ -17,4 +17,15 @@
     --color-primary-800: #0d447f;
     --color-primary-900: #103a6a;
     --color-primary-950: #0b2446;
+
+    --animate-wiggle: wiggle 5s linear infinite;
+ 
+    @keyframes wiggle {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-100%);
+        }
+    }
 }

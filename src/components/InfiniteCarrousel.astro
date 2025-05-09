@@ -1,0 +1,72 @@
+---
+interface Props {
+  words: string[];
+}
+
+const { words } = Astro.props;
+---
+
+<div class="w-full">
+  <div class="flex gap-40 animate-wiggle w-full">
+    <span>Palabra 1</span>
+    <span>Palabra 2</span>
+    <span>Palabra 3</span>
+    <span>Palabra 4</span>
+    <span>Palabra 5</span>
+        <span>Palabra 1</span>
+    <span>Palabra 2</span>
+    <span>Palabra 3</span>
+    <span>Palabra 4</span>
+    <span>Palabra 5</span>
+  </div>
+</div>
+
+<style>
+  .wrapper {
+    width: 100%;
+    overflow: hidden;
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 10%,
+      black 90%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 10%,
+      black 90%,
+      transparent 100%
+    );
+  }
+
+  .carousel {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .scroll {
+    display: flex;
+    gap: 2rem;
+    animation: infinite 2s linear infinite;
+    white-space: nowrap;
+  }
+
+  span {
+    display: inline-block;
+    font-size: 1.5rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  @keyframes infinite {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-100% - 2rem));
+    }
+  }
+</style>
