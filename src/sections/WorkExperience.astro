@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import business_center from "../assets/business_center.svg";
+import Icon from "../assets/business_center.svg";
 
 import Container from "../layouts/Container.astro";
 import Experience from "../uikit/molecules/Experience.astro";
@@ -8,10 +8,10 @@ import Experience from "../uikit/molecules/Experience.astro";
 
 <section class="flex py-28 w-full bg-gray-100">
   <Container>
-    <div class="flex flex-col gap-8">
-      <div class="flex gap-6 mb-10">
-        <Image src={business_center} alt="Icono de experiencia laboral."/>
-        <h2 class="font-sans font-medium text-5xl text-gray-800 align-middle">Experiencia laboral <span class="font-sans font-medium text-3xl text-gray-500 align-middle">(2 Años)</span></h2>
+    <div class="flex flex-col gap-4 md:gap-8">
+      <div class="flex justify-center gap-3.5 mb-4 md:gap-5 md:mb-5 xl:gap-6 xl:mb-8">
+        <Icon class="w-7 h-7 md:w-9 md:h-9 xl:w-12 xl:h-12 fill-gray-800"/>
+        <h2 class="font-sans font-medium w-full text-3xl md:text-4xl xl:text-5xl text-gray-800">Experiencia laboral</h2>
       </div>
       <Experience
         title="Diseñador UX"
