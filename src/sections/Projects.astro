@@ -1,11 +1,16 @@
 ---
 import Container from "../layouts/Container.astro";
 import Project from "../uikit/molecules/Project.astro";
+import ProjectIcon from "../assets/palette.svg";
 ---
 
-<section class="flex py-20 w-full bg-primary-100">
+<section class="flex w-full bg-primary-100 py-16 md:py-20 xl:py-28">
   <Container>
-    <div class="flex flex-col w-full items-center gap-10">
+    <div class="flex flex-col w-full items-center gap-8 md:gap-10 xl:gap-11">
+      <div class="flex w-full justify-center gap-3.5 md:gap-5 md:mb-4 xl:gap-6 xl:mb-5">
+        <ProjectIcon class="w-7 h-7 md:w-9 md:h-9 xl:w-12 xl:h-12 fill-gray-800"/>
+        <h2 class="font-medium w-full text-3xl md:text-4xl xl:text-5xl text-gray-800">Proyectos</h2>
+      </div>
       <Project/>
       <Project/>
       <Project/>

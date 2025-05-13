@@ -19,15 +19,15 @@ const {
     alt="Astro Landing Page"
     width={200}
     height={400}
-    class="bg-primary-200 w-full h-96"
+    class="bg-primary-200 w-full h-44 md:h-96"
   />
-  <div class="flex flex-col w-full pt-8 pr-8 pb-6 pl-6 md:pt-10 md:pr-10 md:pl-10 gap-6 bg-gray-50">
+  <div class="flex flex-col w-full bg-gray-50 py-5 px-4 gap-4 md:pt-9 md:pb-6 md:px-8 md:gap-5 xl:px-10 xl:pt-10 xl:gap-6">
     <div>
-      <span class="px-3 py-1 rounded-full bg-gray-200 font-sans text-lg font-semibold text-gray-600">{category}</span>
+      <span class="px-3 py-1 rounded-full bg-gray-200 text-sm md:text-base xl:text-lg font-semibold text-gray-600">{category}</span>
     </div>
-    <div class="flex flex-col gap-2">
-      <h3 class="font-sans text-3xl font-medium text-gray-800">{title}</h3>
-      <p class="font-sans text-xl text-gray-700 line-clamp-3">{description}</p>
+    <div class="flex flex-col gap-2 md:gap-2.5 xl:gap-3">
+      <h3 class="text-xl md:text-2xl xl:text-3xl font-medium text-gray-800">{title}</h3>
+      <p class="md:text-lg xl:text-xl text-gray-700 line-clamp-3">{description}</p>
     </div>
     <a href={projectUrl} class="text-blue-500 hover:underline ml-auto mt-auto">Ver proyecto</a>
   </div>
