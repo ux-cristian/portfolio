@@ -1,18 +1,12 @@
 ---
-export interface Props {
-  href: string;
-  isSelected?: boolean;
-  tabId: string;
-}
-
-const { href, isSelected = false, tabId } = Astro.props;
+const { url="", isSelected = false, tabId, target="_self" } = Astro.props;
 ---
-<!--TODO: Ajustar los colores con relación al tema de la app -->
 <a 
   id={tabId}
-  href={href}
+  href={url}
   class={`tab p-3 relative text-lg text-gray-700 after:absolute after:bottom-[-2px] after:left-0 after:h-0.5 after:w-0 after:bg-primary-600 after:transition-all after:duration-300 hover:after:w-full`}
   data-selected={isSelected ? 'true' : 'false'}
+  target={target}
 >
   <slot />
   <div class={`after absolute bottom-[-2px] left-0 h-0.5 transition-all duration-300 ${isSelected ? 'w-full bg-primary-600' : 'w-0 bg-primary-600'}`}></div>
@@ -23,7 +17,12 @@ const { href, isSelected = false, tabId } = Astro.props;
   
   tabs.forEach(tab => {
     tab.addEventListener('click', function(this: HTMLAnchorElement, e: MouseEvent) {
-      e.preventDefault();
+
+      console.log('Tab clicked:', {
+        id: this.id,
+        href: this.href,
+        text: this.textContent?.trim()
+      });
       
       tabs.forEach(t => {
         t.classList.remove('font-semibold');
@@ -49,11 +48,84 @@ const { href, isSelected = false, tabId } = Astro.props;
         currentIndicator.classList.add('w-full');
       }
       
+      if (this.getAttribute('href')?.startsWith('#')) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href')?.substring(1);
+        const targetElement = document.getElementById(targetId || '');
+        
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+      
       const event = new CustomEvent('tabSelected', { 
         detail: { tabId: this.id },
         bubbles: true 
       });
       this.dispatchEvent(event);
     });
+  });
+
+  const selectTab = (tab: HTMLAnchorElement) => {
+    tabs.forEach(t => {
+      t.classList.remove('font-semibold');
+      t.classList.remove('text-primary-600');
+      t.classList.add('text-gray-700');
+      t.setAttribute('data-selected', 'false');
+      
+      const indicator = t.querySelector<HTMLDivElement>('.after');
+      if (indicator) {
+        indicator.classList.remove('w-full');
+        indicator.classList.add('w-0');
+      }
+    });
+    
+    tab.classList.remove('text-gray-700');
+    tab.classList.add('font-semibold');
+    tab.classList.add('text-primary-600');
+    tab.setAttribute('data-selected', 'true');
+    
+    const currentIndicator = tab.querySelector<HTMLDivElement>('.after');
+    if (currentIndicator) {
+      currentIndicator.classList.remove('w-0');
+      currentIndicator.classList.add('w-full');
+    }
+  };
+
+  const observerOptions = {
+    // Reducimos el threshold para que sea más sensible
+    threshold: 0.2, 
+    // Ajustamos el rootMargin para compensar el header fijo
+    rootMargin: '-80px 0px -20% 0px' 
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const sectionId = entry.target.id;
+        console.log('Section in view:', sectionId); // Debug
+        
+        const correspondingTab = document.querySelector(`.tab[href="#${sectionId}"]`);
+        console.log('Found tab:', correspondingTab); // Debug
+        
+        if (correspondingTab) {
+          selectTab(correspondingTab as HTMLAnchorElement);
+        }
+      }
+    });
+  }, observerOptions);
+
+  // Agregamos un log para verificar qué secciones se están observando
+  tabs.forEach(tab => {
+    const href = tab.getAttribute('href');
+    if (href?.startsWith('#')) {
+      const sectionId = href.substring(1);
+      const section = document.getElementById(sectionId);
+      console.log('Looking for section:', sectionId, 'Found:', !!section); // Debug
+      
+      if (section) {
+        observer.observe(section);
+      }
+    }
   });
 </script>
