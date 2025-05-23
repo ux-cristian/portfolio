@@ -115,7 +115,6 @@ const { url="", isSelected = false, tabId, target="_self" } = Astro.props;
     });
   }, observerOptions);
 
-  // Agregamos un log para verificar qué secciones se están observando
   tabs.forEach(tab => {
     const href = tab.getAttribute('href');
     if (href?.startsWith('#')) {
