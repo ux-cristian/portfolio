@@ -2,6 +2,7 @@
 import Container from "../layouts/Container.astro";
 import Project from "../uikit/molecules/Project.astro";
 import ProjectIcon from "../assets/palette.svg";
+import { projects } from "../data/projects";
 ---
 
 <section id="projects" class="flex w-full bg-primary-100 py-16 md:py-20 xl:py-28">
@@ -11,9 +12,14 @@ import ProjectIcon from "../assets/palette.svg";
         <ProjectIcon class="w-7 h-7 md:w-9 md:h-9 xl:w-12 xl:h-12 fill-gray-800"/>
         <h2 class="font-medium w-full text-3xl md:text-4xl xl:text-5xl text-gray-800">Proyectos</h2>
       </div>
-      <Project/>
-      <Project/>
-      <Project/>
+      {projects.map((project) => (
+        <Project 
+          title={project.title}
+          description={project.description}
+          projectId={project.id}
+          href={`/portfolio/project/${project.id}`}
+        />
+      ))}
     </div>
   </Container>
 </section>

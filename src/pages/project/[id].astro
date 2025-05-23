@@ -1,0 +1,20 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Container from "../../layouts/Container.astro";
+import { projects } from '../../data/projects.js';
+
+export async function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { id: project.id },
+  }));
+}
+
+const { id } = Astro.params;
+---
+
+<Layout>
+  <Container>
+    {console.log('Project ID:', id)}
+    <h2>{ id }</h2>
+  </Container>
+</Layout>

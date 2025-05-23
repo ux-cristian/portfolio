@@ -6,14 +6,15 @@ const {
   category = "Categoria",
   description = "Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
   imageUrl,
-  projectUrl,
+  projectId,
+  href,
 } = Astro.props;
 ---
 
 <!--TODO:
 2. Cambiar el href por el componente button.
 -->
-<article class="flex flex-col rounded-xl overflow-clip md:flex-row">
+<article id={projectId} class="flex flex-col w-full rounded-xl overflow-clip md:flex-row">
   <Image
     src="/images/projects/astro-landing-page.png"
     alt="Astro Landing Page"
@@ -29,6 +30,6 @@ const {
       <h3 class="text-xl md:text-2xl xl:text-3xl font-medium text-gray-800">{title}</h3>
       <p class="md:text-lg xl:text-xl text-gray-700 line-clamp-3">{description}</p>
     </div>
-    <a href={projectUrl} class="text-blue-500 hover:underline ml-auto mt-auto">Ver proyecto</a>
+    <a href={href} class="text-blue-500 hover:underline ml-auto mt-auto">Ver proyecto</a>
   </div>
 </article>
