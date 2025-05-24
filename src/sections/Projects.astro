@@ -15,7 +15,9 @@ import { projects } from "../data/projects";
       {projects.map((project) => (
         <Project 
           title={project.title}
+          category={project.category}
           description={project.description}
+          imageUrl={`${project.cover_image}`}
           projectId={project.id}
           href={`/portfolio/project/${project.id}`}
         />

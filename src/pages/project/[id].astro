@@ -5,16 +5,20 @@ import { projects } from '../../data/projects.js';
 
 export async function getStaticPaths() {
   return projects.map((project) => ({
-    params: { id: project.id },
+    params: { id: project.id
+    },
+    props: { details: project.details },
   }));
 }
 
 const { id } = Astro.params;
+const { details } = Astro.props;
 ---
 
 <Layout>
   <Container>
-    {console.log('Project ID:', id)}
+    <a href="../#projects">volver</a>
     <h2>{ id }</h2>
+    <p>{ details }</p>
   </Container>
 </Layout>

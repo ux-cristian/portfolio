@@ -1,22 +1,42 @@
 export const projects = [
   {
     id: "tokens",
-    title: "Tokens Design System",
-    description: "Sistema de diseño basado en tokens",
-    technologies: ["React", "Node.js"],
+    cover_image: "/public/projects/tokens/token_cover.jpg",
+    category: "Sistemas de diseño",
+    title: "Sistema de tokens",
+    description: "Tokens con las variables de Figma basado en el sistema de diseño de Material Design (google), para cambio dínamico de tema en aplicaciones de marca blanca de Eccocar.",
     details: {
-        year: 2023,
-        description: "Sistema de diseño basado en tokens para una mejor gestión de estilos y temas en aplicaciones web.",
-    }
+        client: "Eccocar",
+        year: 2024,
+        problem: "Sistema de diseño basado en tokens para una mejor gestión de estilos y temas en aplicaciones web.",
+        solution: "Sistema de diseño basado en tokens para una mejor gestión de estilos y temas en aplicaciones web.",
+        role: "Sistema de diseño basado en tokens para una mejor gestión de estilos y temas en aplicaciones web.",
+        media: [
+            {
+                type: "video",
+                url: "/public/projects/tokens/tokens_project.mp4",
+            },
+        ],
+      }
   },
-  {
-    id: "otro-proyecto",
-    title: "Otro Proyecto",
-    description: "Descripción bonita del proyecto",
-    technologies: ["React", "Node.js"],
+    {
+    id: "projects-2",
+    cover_image: "/public/projects/tokens/token_cover.jpg",
+    category: "Sistemas de diseño",
+    title: "Sistema de tokens",
+    description: "Tokens con las variables de Figma basado en el sistema de diseño de Material Design (google), para cambio dínamico de tema en aplicaciones de marca blanca de Eccocar.",
     details: {
-        year: 2025,
-        description: "Otro proyecto facherito para una mejor gestión de estilos y temas en aplicaciones web.",
-    }
+        client: "Eccocar",
+        year: 2024,
+        problem: "Sistema de diseño basado en tokens para una mejor gestión de estilos y temas en aplicaciones web.",
+        solution: "Sistema de diseño basado en tokens para una mejor gestión de estilos y temas en aplicaciones web.",
+        role: "Sistema de diseño basado en tokens para una mejor gestión de estilos y temas en aplicaciones web.",
+        media: [
+            {
+                type: "video",
+                url: "/public/projects/tokens/tokens_project.mp4",
+            },
+        ],
+      }
   },
 ];
