@@ -1,9 +1,9 @@
 ---
-import { Image } from "astro:assets";
 import Icon from "../assets/business_center.svg";
 
 import Container from "../layouts/Container.astro";
 import Experience from "../uikit/molecules/Experience.astro";
+import { works } from "../data/works";
 ---
 
 <section id="work-experience" class="flex py-28 w-full bg-gray-100 py-16 md:py-20 xl:py-28">
@@ -13,27 +13,16 @@ import Experience from "../uikit/molecules/Experience.astro";
         <Icon class="w-7 h-7 md:w-9 md:h-9 xl:w-12 xl:h-12 fill-gray-800"/>
         <h2 class="font-sans font-medium w-full text-3xl md:text-4xl xl:text-5xl text-gray-800">Experiencia laboral</h2>
       </div>
-      <Experience
-        title="Diseñador UX"
-        company="Habemos"
-        startDate="Enero 2023"
-        endDate="Actualidad"
-        description="Diseño de interfaces y experiencia de usuario para la plataforma de Habemos, un sistema de gestión de proyectos."
-      />
-      <Experience
-        title="Diseñador UX"
-        company="Habemos"
-        startDate="Enero 2023"
-        endDate="Actualidad"
-        description="Diseño de interfaces y experiencia de usuario para la plataforma de Habemos, un sistema de gestión de proyectos."
-      />
-      <Experience
-        title="Diseñador UX"
-        company="Habemos"
-        startDate="Enero 2023"
-        endDate="Actualidad"
-        description="Diseño de interfaces y experiencia de usuario para la plataforma de Habemos, un sistema de gestión de proyectos."
-      />
+
+      {works.map((work) => (
+        <Experience
+          title={work.title}
+          company={work.company}
+          startDate={work.startDate}
+          endDate={work.endDate}
+          description={work.description}
+        />
+      ))}
     </div>
   </Container>
 </section>
