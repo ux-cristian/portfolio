@@ -1,12 +1,11 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from "../../layouts/Layout.astro";
 import Container from "../../layouts/Container.astro";
-import { projects } from '../../data/projects.js';
+import { projects } from "../../data/projects.js";
 
 export async function getStaticPaths() {
   return projects.map((project) => ({
-    params: { id: project.id
-    },
+    params: { id: project.id },
     props: { details: project.details },
   }));
 }
@@ -16,9 +15,57 @@ const { details } = Astro.props;
 ---
 
 <Layout>
+  <a href="../../#projects">volver</a>
   <Container>
-    <a href="../#projects">volver</a>
-    <h2>{ id }</h2>
-    <p>{ details }</p>
+    <section>
+      <div>
+        <div>
+          <h2>CLIENTE</h2>
+          <p>{details.client}</p>
+        </div>
+        <div>
+          <h2>AÑO</h2>
+          <p>{details.year}</p>
+        </div>
+      </div>
+      <div>
+        <div>
+          <h2>Problema</h2>
+          <p>{details.problem}</p>
+        </div>
+        <div>
+          <h2>Solución</h2>
+          <p>{details.solution}</p>
+        </div>
+        <div>
+          <h2>Mi rol</h2>
+          <p>{details.role}</p>
+        </div>
+      </div>
+    </section>
   </Container>
+
+  {
+    details.media.map((media) => (
+      <section class="flex w-full flex-col">
+        <video 
+          autoplay 
+          muted 
+          loop 
+          width="100%"
+        >
+          <source src={media.url} type={media.type} />
+          Su navegador no soporta la etiqueta de vídeo.
+        </video>
+      </section>
+    ))
+  }
+
+  {projects
+    .filter(project => project.id !== id)
+    .map((project) => (
+      <a href={`/portfolio/project/${project.id}`}>
+        {project.title || "Ver proyecto"}
+      </a>
+    ))}
 </Layout>
