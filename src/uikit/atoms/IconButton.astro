@@ -1,3 +1,12 @@
-<a rel="stylesheet" href="#" class="flex p-3">
+---
+interface Props {
+    href?: string;
+    target?: '_blank' | '_self';
+}
+
+const { href = '#', target = '_self'} = Astro.props;
+---
+
+<a rel="stylesheet" href={href} target={target} class="flex p-3">
     <slot/>
 </a>
