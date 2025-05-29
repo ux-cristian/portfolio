@@ -1,7 +1,7 @@
 export const projects = [
   {
     id: "tokens",
-    cover_image: "/projects/tokens/token_cover.jpg",
+    cover_image: "/portfolio/projects/tokens/token_cover.jpg",
     category: "Sistemas de diseño",
     title: "Sistema de tokens",
     description: "Tokens con las variables de Figma basado en el sistema de diseño de Material Design (google), para cambio dínamico de tema en aplicaciones de marca blanca de Eccocar.",
