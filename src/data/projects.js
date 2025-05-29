@@ -14,11 +14,11 @@ export const projects = [
         media: [
             {
                 type: "video/mp4",
-                url: "/public/projects/tokens/tokens_project.mp4",
+                url: "/portfolio/projects/tokens/tokens_project.mp4",
             },
             {
                 type: "video/mp4",
-                url: "/public/projects/tokens/tokens_project.mp4",
+                url: "/portfolio/projects/tokens/tokens_project.mp4",
             },
         ],
       }
