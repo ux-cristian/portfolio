@@ -1,31 +1,22 @@
-<section class="overflow-hidden bg-gradient-to-t from-primary-200 to-primary-100 whitespace-nowrap py-6 [mask-image:_linear-gradient(to_right,_transparent_0,_white_128px,white_calc(100%-128px),_transparent_100%)]">
-  <div 
-    id="words-container" 
-    class="animate-wiggle flex font-sans font-medium md:text-lg xl:text-xl text-gray-700"
-    style="will-change: transform;"
-  ></div>
-</section>
-
-<script>
+---
   const words = [
-    "Sistemas de diseño",
-    "Ingeniero de sistemas",
-    "Prototipado",
-    "Testeo con usuarios",
-    "Wireframing",
+    "Ingenía de sistemas",
+    "Diseño de sistemas de diseño",
+    "Sinergía diseño-desarrollo",
+    "Diseño orientado a implementación",
+    "Optimización de procesos de diseño",
+    "Consistencia visual",
   ];
 
-  const wordsContainer = document.getElementById("words-container");
+  const duplicatedWords = [...words, ...words];
+---
 
-  let htmlContent = "";
-
-  const duplicatedWords = [...words, ...words, ...words, ...words];
-
-  duplicatedWords.forEach((word) => {
-    htmlContent += `<div class="flex items-center"><div class="size-2 bg-primary-600 rounded-full ml-6 mr-6"></div><span>${word}</span></div>`;
-  });
-
-  if (wordsContainer) {
-    wordsContainer.innerHTML = htmlContent;
-  }
-</script>
+<section class="overflow-hidden w-full bg-gradient-to-t from-primary-200 to-primary-100 whitespace-nowrap py-6 [mask-image:_linear-gradient(to_right,_transparent_0,_white_48px,white_calc(100%-48px),_transparent_100%)]">
+    <div id="words-container" class="animate-wiggle flex w-fit font-sans font-medium md:text-lg xl:text-xl text-gray-700">
+      {
+        duplicatedWords.map((word) => (
+          <div class="flex items-center"><div class="size-2 bg-primary-600 rounded-full ml-6 mr-6"></div><span>{word}</span></div>
+        ))
+      }
+    </div>
+</section>

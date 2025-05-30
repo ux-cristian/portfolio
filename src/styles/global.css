@@ -18,20 +18,20 @@
     --color-primary-900: #103a6a;
     --color-primary-950: #0b2446;
 
-    --animate-wiggle: wiggle 40s linear infinite;
+    --animate-wiggle: wiggle 30s linear infinite;
 
     @keyframes wiggle {
         0% {
             transform: translateX(0);
         }
         100% {
-            transform: translateX(-200%);
+            transform: translateX(-50%);
         }
     }
 }
 
 @media (max-width: 640px) {
     :root {
-        --animate-wiggle: wiggle 10s linear infinite;
+        --animate-wiggle: wiggle 20s linear infinite;
     }
 }
