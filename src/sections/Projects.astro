@@ -5,12 +5,12 @@ import ProjectIcon from "../assets/palette.svg";
 import { projects } from "../data/projects";
 ---
 
-<section id="projects" class="flex w-full bg-primary-100 py-16 md:py-20 xl:py-28">
+<section id="projects" class="flex w-full bg-gray-100 py-16 md:py-20 xl:py-28">
   <Container>
-    <div class="flex flex-col w-full items-center gap-8 md:gap-10 xl:gap-11">
+    <div class="flex flex-col w-full items-center gap-4 md:gap-5 xl:gap-5.5">
       <div class="flex w-full items-center gap-3.5 md:gap-5 md:mb-4 xl:gap-6 xl:mb-5">
         <ProjectIcon class="size-7 md:size-9 xl:size-12 fill-gray-800"/>
-        <h2 class="font-medium w-full text-3xl md:text-4xl xl:text-5xl text-gray-800">Proyectos</h2>
+        <h2 class="font-semibold w-full text-3xl md:text-4xl xl:text-5xl text-gray-800">Proyectos</h2>
       </div>
       {projects.map((project) => (
         <Project 
