@@ -1,12 +1,12 @@
 ---
 import Logo from "../assets/logo.svg";
-import Tab from "../uikit/atoms/Tab.astro";
+import NavBar from "../uikit/molecules/NavBar.astro";
 ---
 
 <header class="py-2 fixed w-full z-20 top-0">
     <nav class="bg-primary-100/50 backdrop-blur-lg w-full max-w-screen-xl rounded-full m-auto px-8">
       <div class="flex flex-wrap items-center justify-between py-4">
-        <a href="portfolio">
+        <a href="/portfolio">
           <Logo class="w-60 xl:w-80"/>
         </a>
         <button id="mobile-menu-button" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-600 rounded-lg md:hidden hover:bg-primary-200 focus:outline-none focus:ring-2 focus:ring-primary-300" aria-controls="navbar-solid-bg" aria-expanded="false">
@@ -20,20 +20,7 @@ import Tab from "../uikit/atoms/Tab.astro";
         </button> 
         
         <div class="hidden w-full md:block md:w-auto" id="navbar-solid-bg">
-          <ul class="flex flex-col items-center md:items-end rounded-xl absolute right-8 gap-7 px-6 py-8 font-medium bg-gray-50 shadow-xl md:gap-4 md:py-4 md:relative md:flex-row md:bg-transparent md:px-0 md:shadow-none">
-            <li>
-              <Tab url="#about" tabId="a">Sobre mí</Tab>
-            </li>
-            <li>
-              <Tab url="#work-experience" tabId="b">Experiencia</Tab>
-            </li>
-            <li>
-              <Tab url="#projects" tabId="c">Proyectos</Tab>
-            </li>
-            <li>
-              <Tab url="https://ux-cristian.github.io/portfolio/CV-Cristian.pdf" tabId="cv" target="_blank">Ver CV</Tab>
-            </li>
-          </ul>
+          <NavBar/>
         </div>
       </div>
     </nav>

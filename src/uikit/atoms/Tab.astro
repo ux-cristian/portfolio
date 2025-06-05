@@ -1,130 +1,23 @@
 ---
-const { url="", isSelected = false, tabId, target="_self" } = Astro.props;
+const { href="", tabId, target="_self" } = Astro.props;
 ---
 <a 
   id={tabId}
-  href={url}
+  href={href}
   class="tab text-base xl:text-lg p-3 relative text-gray-700 after:absolute after:bottom-[-2px] after:left-0 after:h-0.5 after:w-0 after:bg-primary-600 after:transition-all after:duration-300 hover:after:w-full"
-  data-selected={isSelected ? 'true' : 'false'}
+  data-tab
   target={target}
 >
   <slot />
-  <div class={`after absolute bottom-[-2px] left-0 h-0.5 transition-all duration-300 ${isSelected ? 'w-full bg-primary-600' : 'w-0 bg-primary-600'}`}></div>
 </a>
 
-<script>
-  const tabs = document.querySelectorAll<HTMLAnchorElement>('.tab');
-  
-  tabs.forEach(tab => {
-    tab.addEventListener('click', function(this: HTMLAnchorElement, e: MouseEvent) {
+<style>
+  .tab.active {
+    color: #0B66C3;
+    font-weight: 600;
+  }
 
-      console.log('Tab clicked:', {
-        id: this.id,
-        href: this.href,
-        text: this.textContent?.trim()
-      });
-      
-      tabs.forEach(t => {
-        t.classList.remove('font-semibold');
-        t.classList.remove('text-primary-600');
-        t.classList.add('text-gray-700');
-        t.setAttribute('data-selected', 'false');
-        
-        const indicator = t.querySelector<HTMLDivElement>('.after');
-        if (indicator) {
-          indicator.classList.remove('w-full');
-          indicator.classList.add('w-0');
-        }
-      });
-      
-      this.classList.remove('text-gray-700');
-      this.classList.add('font-semibold');
-      this.classList.add('text-primary-600');
-      this.setAttribute('data-selected', 'true');
-      
-      const currentIndicator = this.querySelector<HTMLDivElement>('.after');
-      if (currentIndicator) {
-        currentIndicator.classList.remove('w-0');
-        currentIndicator.classList.add('w-full');
-      }
-      
-      if (this.getAttribute('href')?.startsWith('#')) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href')?.substring(1);
-        const targetElement = document.getElementById(targetId || '');
-        
-        if (targetElement) {
-          targetElement.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
-      
-      const event = new CustomEvent('tabSelected', { 
-        detail: { tabId: this.id },
-        bubbles: true 
-      });
-      this.dispatchEvent(event);
-    });
-  });
-
-  const selectTab = (tab: HTMLAnchorElement) => {
-    tabs.forEach(t => {
-      t.classList.remove('font-semibold');
-      t.classList.remove('text-primary-600');
-      t.classList.add('text-gray-700');
-      t.setAttribute('data-selected', 'false');
-      
-      const indicator = t.querySelector<HTMLDivElement>('.after');
-      if (indicator) {
-        indicator.classList.remove('w-full');
-        indicator.classList.add('w-0');
-      }
-    });
-    
-    tab.classList.remove('text-gray-700');
-    tab.classList.add('font-semibold');
-    tab.classList.add('text-primary-600');
-    tab.setAttribute('data-selected', 'true');
-    
-    const currentIndicator = tab.querySelector<HTMLDivElement>('.after');
-    if (currentIndicator) {
-      currentIndicator.classList.remove('w-0');
-      currentIndicator.classList.add('w-full');
-    }
-  };
-
-  const observerOptions = {
-    // Reducimos el threshold para que sea más sensible
-    threshold: 0.2, 
-    // Ajustamos el rootMargin para compensar el header fijo
-    rootMargin: '-80px 0px -20% 0px' 
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const sectionId = entry.target.id;
-        console.log('Section in view:', sectionId); // Debug
-        
-        const correspondingTab = document.querySelector(`.tab[href="#${sectionId}"]`);
-        console.log('Found tab:', correspondingTab); // Debug
-        
-        if (correspondingTab) {
-          selectTab(correspondingTab as HTMLAnchorElement);
-        }
-      }
-    });
-  }, observerOptions);
-
-  tabs.forEach(tab => {
-    const href = tab.getAttribute('href');
-    if (href?.startsWith('#')) {
-      const sectionId = href.substring(1);
-      const section = document.getElementById(sectionId);
-      console.log('Looking for section:', sectionId, 'Found:', !!section); // Debug
-      
-      if (section) {
-        observer.observe(section);
-      }
-    }
-  });
-</script>
+  .tab.active::after {
+    width: 100%;
+  }
+</style>
