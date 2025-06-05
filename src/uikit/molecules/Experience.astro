@@ -15,13 +15,13 @@ const { title, company, startDate, endDate, description } = Astro.props;
         <div class="size-2.5 md:size-3 xl:size-4 bg-primary-600 rounded-full z-10"></div>
         <div class="w-0.5 h-full bg-gray-300 rounded-full -m-0.5"></div>
     </div>
-    <div class="flex flex-col md:pb-2 xl:pb-4 gap-4 md:flex-row font-sans text-gray-700">
+    <div class="flex flex-col md:pb-2 xl:pb-4 gap-4 md:flex-row font-sans text-gray-800">
         <div class="flex flex-col gap-2 w-full">
-            <h3 class="text-xl md:text-2xl xl:text-3xl font-semibold text-gray-800">{title}</h3>
-            <span class="text-xl md:text-2xl xl:text-3xl font-semibold">{company}</span>
-            <span class="md:text-lg xl:text-xl font-medium">{startDate} - {endDate}</span>
+            <h3 class="text-xl md:text-2xl xl:text-3xl font-semibold">{title}</h3>
+            <span class="text-xl md:text-2xl xl:text-3xl">{company}</span>
+            <span class="md:text-lg xl:text-xl text-gray-500">{startDate} - {endDate}</span>
         </div>
-        <p class="md:text-lg xl:text-xl w-full text-gray-800">{description}</p>
+        <p class="md:text-lg xl:text-xl w-full">{description}</p>
     </div>
 </article>
 
