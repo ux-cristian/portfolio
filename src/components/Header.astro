@@ -1,6 +1,12 @@
 ---
 import Logo from "../assets/logo.svg";
 import NavBar from "../uikit/molecules/NavBar.astro";
+
+interface Props {
+  navbarBehavior?: "navigationType" | "redirectionType";
+}
+
+const {navbarBehavior} = Astro.props;
 ---
 
 <header class="py-2 fixed w-full z-20 top-0">
@@ -20,7 +26,7 @@ import NavBar from "../uikit/molecules/NavBar.astro";
         </button> 
         
         <div class="hidden w-full md:block md:w-auto" id="navbar-solid-bg">
-          <NavBar/>
+          <NavBar behavior={navbarBehavior}/>
         </div>
       </div>
     </nav>

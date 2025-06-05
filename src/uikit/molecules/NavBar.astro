@@ -1,16 +1,22 @@
 ---
 import Tab from '../atoms/Tab.astro';
+
+interface Props {
+  behavior?: "navigationType" | "redirectionType";
+}
+
+const { behavior = "navigationType"} = Astro.props;
 ---
 
 <ul class="flex flex-col items-center md:items-end rounded-xl absolute right-8 gap-7 px-6 py-8 font-medium bg-gray-50 shadow-xl md:gap-4 md:py-4 md:relative md:flex-row md:bg-transparent md:px-0 md:shadow-none">
     <li>
-        <Tab href="/portfolio#about" tabId="a">Sobre mí</Tab>
+        <Tab href={(behavior==="redirectionType") ? "/portfolio#about" : "#about"} tabId="a">Sobre mí</Tab>
     </li>
     <li>
-        <Tab href="/portfolio#work-experience" tabId="b">Experiencia</Tab>
+        <Tab href={(behavior==="redirectionType") ? "/portfolio#work-experience" : "#work-experience"} tabId="b">Experiencia</Tab>
     </li>
     <li>
-        <Tab href="/portfolio#projects" tabId="c">Proyectos</Tab>
+        <Tab href={(behavior==="redirectionType") ? "/portfolio#projects" : "#projects"} tabId="c">Proyectos</Tab>
     </li>
     <li>
         <Tab href="https://ux-cristian.github.io/portfolio/CV-Cristian.pdf" tabId="cv" target="_blank">Ver CV</Tab>

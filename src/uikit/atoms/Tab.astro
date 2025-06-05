@@ -1,5 +1,11 @@
 ---
-const { href="", tabId, target="_self" } = Astro.props;
+interface Props {
+  href?: string;
+  tabId?: string;
+  target?: "_self" | "_blank";
+}
+
+const { href="#", tabId, target="_self" } = Astro.props;
 ---
 <a 
   id={tabId}
