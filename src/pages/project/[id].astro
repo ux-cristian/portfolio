@@ -10,6 +10,8 @@ import ProblemIcon from "../../assets/icons/emergency_home.svg";
 import SolutionIcon from "../../assets/icons/emoji_objects.svg";
 import RoleIcon from "../../assets/icons/draw.svg";
 import ReturnIcon from "../../assets/icons/arrow_left_alt.svg";
+import CalendarMonth from "../../assets/icons/calendar_month.svg";
+import CorporateFare from "../../assets/icons/corporate_fare.svg";
 
 import { projects } from "../../data/projects.js";
 
@@ -28,22 +30,35 @@ const { project } = Astro.props;
   <Header navbarBehavior="redirectionType"/>
   <section class="flex mt-10 xl:mt-10 py-16 md:py-20 xl:py-28 w-full bg-gradient-to-t from-primary-200 to-primary-100">
     <Container>
-      <div class="flex flex-col gap-2 md:gap-6">
+      <div class="flex flex-col gap-9 md:gap-10 text-gray-800">
         <a href="/portfolio#projects" class="flex items-center gap-3 hover:underline w-fit text-gray-700 font-medium md:text-md xl:text-xl mb-4 py-2"><ReturnIcon class="size-5 xl:size-6 fill-gray-700"/>volver</a>
-        <h2 class="text-gray-800 font-semibold text-5xl md:text-6xl xl:text-7xl">{project.title}</h2>
-        <span class="mt-4 w-fit px-4 py-1 rounded-full bg-primary-100 text-sm md:text-base xl:text-lg font-semibold text-primary-700">{project.category}</span>
+        <div class="flex flex-col gap-4 md:gap-6">
+          <h2 class="text-gray-800 font-semibold text-4xl md:text-6xl">{project.title}</h2>
+          <span class="w-fit px-3 md:px-4 py-1 rounded-full bg-primary-100 text-sm md:text-base xl:text-lg font-semibold text-primary-700">{project.category}</span>
+        </div>
+        <p class="md:text-lg xl:text-xl w-full xl:w-1/2 " set:html={project.details.context}></p>
+        <div class="flex flex-col gap-3 md:gap-14 md:flex-row">
+          <div class="flex gap-2 md:gap-3">
+            <CorporateFare class="size-5 xl:size-6 fill-gray-600"/>
+            <p class="md:text-lg xl:text-xl">Cliente: {project.details.client}</p>
+          </div>
+          <div class="flex gap-2 md:gap-3">
+            <CalendarMonth class="size-5 xl:size-6 fill-gray-600"/>
+            <p class="md:text-lg xl:text-xl">{project.details.date}</p>
+          </div>
+        </div>
       </div>
     </Container>
   </section>
   <section class="flex py-16 md:py-20 xl:py-28 w-full bg-gray-50">
     <Container>
-      <div class="flex flex-col gap-6 md:gap-12 xl:gap-8">
+      <div class="flex flex-col gap-6 md:gap-12 xl:gap-8 text-gray-800">
         <article class="flex gap-4 md:gap-6">
         <div class="flex flex-col items-center h-full">
             <ProblemIcon class="size-8 md:size-10 xl:size-12 fill-primary-600"/>
             <div class="w-0.5 h-full bg-gray-300 rounded-full"></div>
         </div>
-        <div class="flex flex-col md:pb-2 xl:pb-4 gap-2 md:gap-4 xl:gap-0 md:flex-row font-sans text-gray-800">
+        <div class="flex flex-col md:pb-2 xl:pb-4 gap-2 md:gap-4 xl:gap-0 md:flex-row">
             <h3 class="w-full text-xl md:text-2xl xl:text-3xl font-semibold">Desafío</h3>
             <p class="md:text-lg xl:text-xl w-full" set:html={project.details.challenge}></p>
         </div>
@@ -53,7 +68,7 @@ const { project } = Astro.props;
               <SolutionIcon class="size-8 md:size-10 xl:size-12 fill-primary-600"/>
               <div class="w-0.5 h-full bg-gray-300 rounded-full"></div>
           </div>
-          <div class="flex flex-col md:pb-2 xl:pb-4 gap-2 md:gap-4 xl:gap-0 md:flex-row font-sans text-gray-800">
+          <div class="flex flex-col md:pb-2 xl:pb-4 gap-2 md:gap-4 xl:gap-0 md:flex-row">
               <h3 class="w-full text-xl md:text-2xl xl:text-3xl font-semibold">Solución</h3>
               <p class="md:text-lg xl:text-xl w-full" set:html={project.details.solution}></p>
           </div>
@@ -63,7 +78,7 @@ const { project } = Astro.props;
               <RoleIcon class="size-8 md:size-10 xl:size-12 fill-primary-600"/>
               <div class="w-0.5 h-full bg-gray-300 rounded-full"></div>
           </div>
-          <div class="flex flex-col md:pb-2 xl:pb-4 gap-2 md:gap-4 xl:gap-0 md:flex-row font-sans text-gray-800">
+          <div class="flex flex-col md:pb-2 xl:pb-4 gap-2 md:gap-4 xl:gap-0 md:flex-row">
               <h3 class="w-full text-xl md:text-2xl xl:text-3xl font-semibold">Mi rol</h3>
               <p class="md:text-lg xl:text-xl w-full" set:html={project.details.role}></p>
           </div>
