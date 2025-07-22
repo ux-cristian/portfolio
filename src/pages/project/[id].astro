@@ -164,7 +164,7 @@ const { project } = Astro.props;
                       <h3 class="text-xl md:text-2xl xl:text-3xl font-semibold text-gray-800">{project.title}</h3>
                       <p class="md:text-lg xl:text-xl text-gray-800 line-clamp-6">{project.description}</p>
                     </div>
-                    <a href={project.id} class="text-primary-600 md:text-lg xl:text-xl font-semibold hover:underline ml-auto mt-auto">Ver proyecto</a>
+                    <a href={`/portfolio/project/${project.id}`} class="text-primary-600 md:text-lg xl:text-xl font-semibold hover:underline ml-auto mt-auto">Ver proyecto</a>
                   </div>
                 </article>
               ))
