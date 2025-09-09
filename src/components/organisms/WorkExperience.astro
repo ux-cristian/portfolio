@@ -11,13 +11,14 @@ import { works } from "../../data/works.js";
     <div class="flex flex-col gap-6 md:gap-8">
       <div class="flex items-center gap-3.5 mb-4 md:gap-5 md:mb-5 xl:gap-6 xl:mb-8">
         <Icon class="size-7 md:size-9 xl:size-12 fill-gray-800"/>
-        <h2 class="font-semibold w-full text-3xl md:text-4xl xl:text-5xl text-gray-800">Experiencia laboral</h2>
+        <h2 class="font-brand font-semibold w-full text-3xl md:text-4xl xl:text-5xl text-gray-800">Experiencia laboral</h2>
       </div>
 
       {works.map((work) => (
         <Experience
           title={work.title}
           company={work.company}
+          urlCompany={work.urlCompany}
           startDate={work.startDate}
           endDate={work.endDate}
           description={work.description}

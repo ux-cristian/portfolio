@@ -1,27 +1,31 @@
 ---
+import OpenInNewIcon from '../../assets/icons/open_in_new.svg'
+
 interface ExperienceProps {
     title: string;
     company: string;
-    startDate: string;
+    urlCompany: string;
     endDate: string;
     description: string;
 }
 
-const { title, company, startDate, endDate, description } = Astro.props;
+const { title, company, urlCompany, startDate, endDate, description } = Astro.props;
 ---
 
-<article class="flex gap-4 md:gap-6">
-    <div class="flex flex-col items-center pt-2 md:pt-2.5 xl:pt-2.5 h-full">
-        <div class="size-2.5 md:size-3 xl:size-4 bg-primary-600 rounded-full z-10"></div>
-        <div class="w-0.5 h-full bg-gray-300 rounded-full -m-0.5"></div>
+<article class="flex gap-4 md:gap-5 xl:gap-6">
+    <div class="flex flex-col items-center pt-1.5 xl:pt-1 h-full">
+        <div class="flex size-7 md:size-9 xl:size-12 items-center justify-center">
+            <div class="size-2 md:size-2.5 xl:size-3 bg-gray-800 rounded-full z-10"></div>
+        </div>
+        <div class="w-0.5 h-full bg-gray-300 rounded-full"></div>
     </div>
     <div class="flex flex-col md:pb-2 xl:pb-4 gap-4 md:flex-row font-sans text-gray-800">
         <div class="flex flex-col gap-2 w-full">
-            <h3 class="text-xl md:text-2xl xl:text-3xl font-semibold">{title}</h3>
-            <span class="text-xl md:text-2xl xl:text-3xl">{company}</span>
+            <h3 class="font-brand font-semibold text-xl md:text-2xl xl:text-3xl">{title}</h3>
+            <a href={urlCompany} target="_blank" class="flex items-center gap-1.5 md:gap-2 font-brand font-bold text-primary-600 text-base md:text-lg xl:text-xl">{company} <OpenInNewIcon class="size-5 md:size-6 xl:size-7 fill-primary-600"/></a>
             <span class="md:text-lg xl:text-xl text-gray-500">{startDate} - {endDate}</span>
         </div>
-        <p class="md:text-lg xl:text-xl w-full">{description}</p>
+        <p class="text-base md:text-lg xl:text-xl w-full">{description}</p>
     </div>
 </article>
 
