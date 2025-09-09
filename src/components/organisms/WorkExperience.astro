@@ -1,8 +1,9 @@
 ---
+import OpenInNewIcon from '../../assets/icons/open_in_new.svg'
 import Icon from "../../assets/business_center.svg";
-
 import Container from "../../templates/Container.astro";
 import Experience from "../molecules/Experience.astro";
+import Button from "../atoms/Button.astro";
 import { works } from "../../data/works.js";
 ---
 
@@ -24,6 +25,9 @@ import { works } from "../../data/works.js";
           description={work.description}
         />
       ))}
+      <div class="flex justify-end mt-4 md:mt-6 xl:mt-8">
+        <Button href="/portfolio/cv.pdf" target="_blank" type="outline">Ver CV <OpenInNewIcon class="size-[18px] md:size-5 xl:size-6 fill-primary-600"/></Button>
+      </div>
     </div>
   </Container>
 </section>
