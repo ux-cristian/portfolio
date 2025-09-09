@@ -1,0 +1,17 @@
+---
+import Container from "../../templates/Container.astro";
+import Button from "../atoms/Button.astro";
+import OpenInNewIcon from '../../assets/icons/open_in_new.svg'
+---
+
+<section id="projects" class="bg-[url('../assets/vectors/wireframe_vector.svg')] bg-cover flex w-full bg-gray-50 py-16 md:py-20 xl:py-28 scroll-mt-12">
+  <Container>
+    <div class="flex flex-col w-full items-center gap-7 md:gap-9 xl:gap-11">
+        <h2 class="text-2xl md:text-3xl xl:text-4xl md:max-w-[70%] font-brand font-semibold text-center text-gray-800">¿Tienes alguna pregunta, comentario o idea? Por favor, envíamela.</h2>
+        <div class="flex gap-4 md:gap-5 xl:gap-6">
+            <Button type="outline" href="mailto:cristian08nc@gmail.com" target="_blank">Correo <OpenInNewIcon class="size-[18px] md:size-5 xl:size-6 fill-primary-600"/></Button>
+            <Button type="outline" href="https://www.linkedin.com/in/ux-cristian/" target="_blank">Linkedin <OpenInNewIcon class="size-[18px] md:size-5 xl:size-6 fill-primary-600"/></Button>
+        </div>
+    </div>
+  </Container>
+</section>
