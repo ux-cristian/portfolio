@@ -23,6 +23,6 @@ function getSizeClasses(size?: keyof typeof sizes) {
 const { size = undefined } = Astro.props;
 ---
 
-<span class={`text-primary-700 bg-primary-100 font-semibold rounded-full h-fit ${getSizeClasses(size)}`}>
+<span class={`text-primary-700 bg-primary-100 font-semibold rounded-full h-fit w-fit ${getSizeClasses(size)}`}>
   <slot />
 </span>

@@ -1,5 +1,6 @@
 ---
-import Image from "astro/components/Image.astro";
+import Tag from '../atoms/Tag.astro';
+import ArrowRightIcon from '../../assets/icons/arrow_right_alt.svg';
 
 const {
   title = "Título del proyecto",
@@ -10,19 +11,39 @@ const {
   href,
 } = Astro.props;
 ---
-<a href={href} class="w-full">
-  <article id={projectId} class="flex flex-col w-full rounded-xl overflow-clip md:flex-row relative shadow-md hover:shadow-xl transition-shadow duration-300">
-  <div class="absolute top-4 left-4 md:top-6 md:left-6 xl:top-8 xl:left-8">
-    <span class="ml-auto px-4 py-1 rounded-full bg-primary-100 text-sm md:text-base xl:text-lg font-medium text-primary-700">{category}</span>
+
+<article
+  id={projectId}
+  class="group flex flex-wrap rounded-2xl md:rounded-4xl bg-gray-50 hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+  onclick={`window.location.href='${href}'`}
+>
+  <div class="relative flex-1 basis-1/2 min-w-96 overflow-hidden">
+    <img
+      src={imageUrl}
+      alt={`Foto del proyecto ${title}`}
+      class="w-full h-60 md:h-full border-[4px] md:border-[5px] xl:border-[6px] border-primary-200 rounded-2xl md:rounded-4xl object-cover"
+    />
+    <div class="absolute inset-0 bg-primary-950/16 rounded-2xl md:rounded-4xl"></div>
   </div>
-  <img src={imageUrl} alt={`Foto del proyecto ${title}`} class="bg-primary-200 object-cover w-full h-44 md:h-96">
-  <div class="flex flex-col w-full bg-gray-50 py-5 px-4 gap-4 md:pt-9 md:pb-6 md:px-8 md:gap-5 xl:px-10 xl:pt-10 xl:gap-6">
-    <div class="flex flex-col gap-2 md:gap-2.5 xl:gap-3">
-      <h3 class="text-xl md:text-2xl xl:text-3xl font-semibold text-gray-800">{title}</h3>
-      <p class="md:text-lg xl:text-xl text-gray-800 line-clamp-6">{description}</p>
+  <div
+    class="flex-1 basis-1/2 min-w-96 flex flex-col justify-between p-4 gap-4 md:pt-9 md:pb-6 md:px-8 md:gap-5 xl:px-10 xl:pt-8"
+  >
+    <div class="flex flex-col gap-1 md:gap-2 xl:gap-4">
+      <h3 class="font-brand text-xl md:text-2xl xl:text-3xl font-semibold text-gray-800">
+        {title}
+      </h3>
+      <p class="text-base md:text-lg xl:text-xl text-gray-800 line-clamp-4">
+        {description}
+      </p>
     </div>
-    <a href={href} class="text-primary-600 md:text-lg xl:text-xl font-semibold hover:underline ml-auto mt-auto">Ver proyecto</a>
+    <div class="flex flex-wrap gap-4 justify-between items-center mt-3">
+      <Tag size="xs">
+        {category}
+      </Tag>
+      <a href={href} class="flex items-center gap-1.5 md:gap-2 ml-auto font-brand font-bold text-primary-600 md:text-lg xl:text-xl">
+        Ver proyecto
+        <ArrowRightIcon class="hidden group-hover:block size-5 md:size-6 xl:size-7 fill-primary-600"/>
+      </a>
+    </div>
   </div>
 </article>
-</a>
-
