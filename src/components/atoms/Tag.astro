@@ -1,0 +1,28 @@
+---
+interface Props {
+  size?: keyof typeof sizes;
+}
+
+const sizes = {
+  xs: 'text-base px-2.5',
+  sm: 'text-lg px-3',
+  md: 'text-xl px-3',
+  xl: 'text-2xl px-4',
+} as const;
+
+const responsiveDefaults: (keyof typeof sizes)[] = ['sm', 'md', 'xl'];
+
+function getSizeClasses(size?: keyof typeof sizes) {
+  if (size) return sizes[size];
+
+  return responsiveDefaults
+    .map((defaultValue) => `${defaultValue}:${sizes[defaultValue]}`)
+    .join(' ');
+}
+
+const { size = undefined } = Astro.props;
+---
+
+<span class={`text-primary-700 bg-primary-100 font-semibold rounded-full h-fit ${getSizeClasses(size)}`}>
+  <slot />
+</span>
