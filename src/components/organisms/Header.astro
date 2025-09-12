@@ -3,7 +3,7 @@ import Logo from "../atoms/Logo.astro";
 import NavBar from "../molecules/NavBar.astro";
 
 interface Props {
-  navbarBehavior: "navigationType" | "redirectionType";
+  navbarBehavior?: "navigationType" | "redirectionType";
 }
 
 const {navbarBehavior="navigationType"} = Astro.props;
