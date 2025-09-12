@@ -164,7 +164,7 @@ const { project } = Astro.props;
                   <h3 class="font-brand font-semibold text-xl md:text-2xl xl:text-3xl md:ml-10 xl:ml-14">
                     {process.title}
                   </h3>
-                    <p class="col-span-2 text-base md:text-lg xl:text-xl md:mt-2">{process.description}</p>
+                  <div class="col-span-2 text-base md:text-lg xl:text-xl md:mt-2" set:html={process.description}></div>
                 </div>
               </div>
             ))
@@ -189,9 +189,7 @@ const { project } = Astro.props;
                   <span class="font-semibold font-brand text-xl md:text-2xl xl:text-3xl ml-0.5 md:ml-1 xl:ml-2">
                     0{index + 1}
                   </span>{" "}
-                  <p class="col-span-2 text-base md:text-lg xl:text-xl xl:mt-2">
-                    {learning}
-                  </p>
+                  <p class="col-span-2 text-base md:text-lg xl:text-xl xl:mt-2" set:html={learning}></p>
                 </div>
               </div>
             ))
