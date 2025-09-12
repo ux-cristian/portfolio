@@ -78,3 +78,16 @@
     opacity: 1;
     pointer-events: auto;
 }
+
+/* Reading progress bar */
+#reading-progress {
+    height: 4px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    background: var(--color-primary-600, #0b66c3);
+    width: 0%;
+    pointer-events: none;
+    transition: width 120ms linear;
+}

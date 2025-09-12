@@ -4,13 +4,19 @@ import "../../styles/global.css";
 import Layout from "../../templates/Layout.astro";
 import Container from "../../templates/Container.astro";
 import Header from "../../components/organisms/Header.astro";
+import Contact from "../../components/organisms/Contact.astro";
 import Footer from "../../components/organisms/Footer.astro";
+import Project from "../../components/molecules/Project.astro";
+import ReadingProgress from "../../components/atoms/ReadingProgress.astro";
 
-import ProblemIcon from "../../assets/icons/emergency_home.svg";
+import ProblemIcon from "../../assets/icons/target.svg";
 import SolutionIcon from "../../assets/icons/emoji_objects.svg";
-import RoleIcon from "../../assets/icons/draw.svg";
+import RoleIcon from "../../assets/icons/assignment_ind.svg";
 import CalendarMonth from "../../assets/icons/calendar_month.svg";
 import CorporateFare from "../../assets/icons/corporate_fare.svg";
+import ProcessIcon from "../../assets/icons/draw.svg";
+import LearningIcon from "../../assets/icons/neurology.svg";
+import ProjectIcon from "../../assets/palette.svg";
 
 import { projects } from "../../data/projects.js";
 
@@ -26,7 +32,11 @@ const { project } = Astro.props;
 ---
 
 <Layout>
+
+  <ReadingProgress />
+
   <Header navbarBehavior="redirectionType" />
+
   <section
     class="flex py-10 md:py-16 xl:py-20 w-full bg-gradient-to-t from-primary-200 to-primary-100"
   >
@@ -63,94 +73,79 @@ const { project } = Astro.props;
       </div>
     </Container>
   </section>
-  
-  <section class="flex py-16 md:py-20 xl:py-28 w-full bg-gray-50">
+
+  <section class="bg-[url('../assets/vectors/wireframe_vector.svg')] bg-cover flex w-full bg-gray-100 py-16 md:py-20 xl:py-28">
     <Container>
-      <div class="flex flex-col gap-6 md:gap-12 xl:gap-8 text-gray-800">
-        <article class="flex gap-4 md:gap-6">
-          <div class="flex flex-col items-center h-full">
+      <div class="flex flex-col gap-8 md:gap-10 xl:gap-12 text-gray-800">
+        <article class="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-6">
+          <div class="flex items-center gap-4 md:gap-5 xl:gap-6 mb-auto">
             <ProblemIcon
-              class="size-8 md:size-10 xl:size-12 fill-primary-600"
+              class="size-6 md:size-7 xl:size-8 fill-gray-800"
             />
-            <div class="w-0.5 h-full bg-gray-300 rounded-full"></div>
-          </div>
-          <div
-            class="flex flex-col md:pb-2 xl:pb-4 gap-2 md:gap-4 xl:gap-0 md:flex-row"
-          >
-            <h3 class="w-full text-xl md:text-2xl xl:text-3xl font-semibold">
+            <h3 class="font-brand font-semibold text-xl md:text-2xl xl:text-3xl">
               Desafío
             </h3>
-            <p
-              class="md:text-lg xl:text-xl w-full"
-              set:html={project.details.challenge}
-            />
           </div>
+          <p
+            class="col-span-2 text-base md:text-lg xl:text-xl w-full"
+            set:html={project.details.challenge}
+          />
         </article>
-        <article class="flex gap-4 md:gap-6">
-          <div class="flex flex-col items-center h-full">
-            <SolutionIcon
-              class="size-8 md:size-10 xl:size-12 fill-primary-600"
+        <article class="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-6">
+          <div class="flex items-center gap-4 md:gap-5 xl:gap-6 mb-auto">
+            <RoleIcon
+              class="size-6 md:size-7 xl:size-8 fill-gray-800"
             />
-            <div class="w-0.5 h-full bg-gray-300 rounded-full"></div>
-          </div>
-          <div
-            class="flex flex-col md:pb-2 xl:pb-4 gap-2 md:gap-4 xl:gap-0 md:flex-row"
-          >
-            <h3 class="w-full text-xl md:text-2xl xl:text-3xl font-semibold">
-              Solución
-            </h3>
-            <p
-              class="md:text-lg xl:text-xl w-full"
-              set:html={project.details.solution}
-            />
-          </div>
-        </article>
-        <article class="flex gap-4 md:gap-6">
-          <div class="flex flex-col items-center h-full">
-            <RoleIcon class="size-8 md:size-10 xl:size-12 fill-primary-600" />
-            <div class="w-0.5 h-full bg-gray-300 rounded-full"></div>
-          </div>
-          <div
-            class="flex flex-col md:pb-2 xl:pb-4 gap-2 md:gap-4 xl:gap-0 md:flex-row"
-          >
-            <h3 class="w-full text-xl md:text-2xl xl:text-3xl font-semibold">
+            <h3 class="font-brand font-semibold text-xl md:text-2xl xl:text-3xl">
               Mi rol
             </h3>
-            <p
-              class="md:text-lg xl:text-xl w-full"
-              set:html={project.details.role}
-            />
           </div>
+          <p
+            class="col-span-2 text-base md:text-lg xl:text-xl w-full"
+            set:html={project.details.role}
+          />
+        </article>
+        <article class="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-6">
+          <div class="flex items-center gap-4 md:gap-5 xl:gap-6 mb-auto">
+            <SolutionIcon
+              class="size-6 md:size-7 xl:size-8 fill-gray-800"
+            />
+            <h3 class="font-brand font-semibold text-xl md:text-2xl xl:text-3xl">
+              Solución
+            </h3>
+          </div>
+          <p
+            class="col-span-2 text-base md:text-lg xl:text-xl w-full"
+            set:html={project.details.solution}
+          />
         </article>
       </div>
     </Container>
   </section>
+
   <section class="py-16 md:py-20 xl:py-28 w-full bg-gray-100">
     <Container>
       <div class="flex flex-col gap-12 md:gap-14 xl:gap-16 text-gray-800">
-        <h2 class="font-semibold text-3xl md:text-4xl xl:text-5xl">Proceso</h2>
-        <div class="flex flex-col gap-12 md:gap-14 xl:gap-16">
+        <div class="flex w-full items-center gap-3.5 md:gap-5 xl:gap-6">
+          <ProcessIcon class="size-7 md:size-9 xl:size-12 fill-gray-800"/>
+          <h2 class="font-brand font-semibold w-full text-3xl md:text-4xl xl:text-5xl text-gray-800">Proceso</h2>
+        </div>
+        <div class="flex flex-col gap-10 md:gap-16 xl:gap-20">
           {
             project.details.process.length === 0 && (
-              <p class="text-gray-600">
+              <p class="text-gray-700">
                 No hay procesos disponibles para este proyecto.
               </p>
             )
           }
           {
             project.details.process.map((process, index) => (
-              <div class="flex flex-col gap-2 md:gap-3 xl:gap-4">
-                <h3 class="font-medium text-xl md:text-2xl xl:text-3xl">
-                  <span class="font-semibold w-auto inline-block text-primary-700">
-                    0{index + 1}.
-                  </span>{" "}
-                  {process.title}
-                </h3>
+              <div class="flex flex-col gap-4 md:gap-8">
                 {process.type.startsWith("image") ? (
                   <img
                     src={process.url}
                     alt={process.title}
-                    class="w-full h-auto min-h-40 rounded-2xl md:rounded-3xl xl:rounded-4xl bg-primary-100 mt-2 xl:mt-3"
+                    class="bg-[url('../assets/vectors/level_curves.svg'),linear-gradient(to_top,theme(colors.primary.100),theme(colors.primary.200))] bg-cover w-full outline-[4px] md:outline-[5px] xl:outline-[6px] outline-primary-200 min-h-36 md:min-h-80 xl:min-h-[500px]  rounded-xl md:rounded-3xl xl:rounded-4xl"
                   />
                 ) : (
                   <video
@@ -158,15 +153,19 @@ const { project } = Astro.props;
                     muted
                     loop
                     width="100%"
-                    class="w-full h-auto min-h-40 rounded-2xl md:rounded-3xl xl:rounded-4xl bg-primary-100 mt-2 xl:mt-3"
+                    class="bg-[url('../assets/vectors/level_curves.svg'),linear-gradient(to_top,theme(colors.primary.100),theme(colors.primary.200))] bg-cover w-full outline-[4px] md:outline-[5px] xl:outline-[6px] outline-primary-200 min-h-36 md:min-h-80 xl:min-h-[500px]  rounded-xl md:rounded-3xl xl:rounded-4xl"
                   >
                     <source src={process.url} type={process.type} />
                     Su navegador no soporta la etiqueta de vídeo.
                   </video>
                 )}
-                <p class="md:text-lg xl:text-xl mt-2 xl:mt-3">
-                  {process.description}
-                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-6">
+                  <h3 class="font-brand font-semibold text-xl md:text-2xl xl:text-3xl md:ml-10 xl:ml-14">
+                    {process.title}
+                  </h3>
+                    <p class="col-span-2 text-base md:text-lg xl:text-xl md:mt-2">{process.description}</p>
+                </div>
               </div>
             ))
           }
@@ -177,20 +176,23 @@ const { project } = Astro.props;
 
   <section class="py-16 md:py-20 xl:py-28 w-full bg-gray-50">
     <Container>
-      <div class="flex flex-col gap-10 md:gap-12 xl:gap-14 text-gray-800">
-        <h2 class="font-semibold text-3xl md:text-4xl xl:text-5xl">
-          Aprendizajes
-        </h2>
+      <div class="flex flex-col gap-10 md:gap-16 xl:gap-20 text-gray-800">
+        <div class="flex w-full items-center gap-3.5 md:gap-5 xl:gap-6">
+          <LearningIcon class="size-7 md:size-9 xl:size-12 fill-gray-800"/>
+          <h2 class="font-brand font-semibold w-full text-3xl md:text-4xl xl:text-5xl text-gray-800">Aprendizajes</h2>
+        </div>
         <div class="flex flex-col gap-6 md:gap-8 xl:gap-10">
           {
             project.details.learnings.map((learning, index) => (
               <div class="flex flex-col gap-2 md:gap-3 xl:gap-4">
-                <h3 class="md:text-lg xl:text-xl">
-                  <span class="font-semibold w-auto inline-block text-primary-700">
-                    0{index + 1}.
+                <div class="grid grid-cols-1 md:grid-cols-3">
+                  <span class="font-semibold font-brand text-xl md:text-2xl xl:text-3xl ml-0.5 md:ml-1 xl:ml-2">
+                    0{index + 1}
                   </span>{" "}
-                  {learning}
-                </h3>
+                  <p class="col-span-2 text-base md:text-lg xl:text-xl xl:mt-2">
+                    {learning}
+                  </p>
+                </div>
               </div>
             ))
           }
@@ -199,49 +201,28 @@ const { project } = Astro.props;
     </Container>
   </section>
 
+  <Contact></Contact>
+
   {
     projects.length > 1 && (
       <section class="py-16 md:py-20 xl:py-28 w-full bg-gray-100">
         <Container>
           <div class="flex flex-col gap-12 md:gap-14 xl:gap-16 text-gray-800">
-            <h2 class="font-semibold text-3xl md:text-4xl xl:text-5xl">
-              Otros proyectos
-            </h2>
+            <div class="flex w-full items-center gap-3.5 md:gap-5 xl:gap-6">
+              <ProjectIcon class="size-7 md:size-9 xl:size-12 fill-gray-800"/>
+              <h2 class="font-brand font-semibold w-full text-3xl md:text-4xl xl:text-5xl text-gray-800">Otros proyectos</h2>
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 xl:gap-10">
               {projects
                 .filter((project) => project.id !== id)
                 .map((project) => (
-                  <article
+                  <Project
                     id={project.id}
-                    class="flex flex-col w-full rounded-xl overflow-clip relative shadow-md"
-                  >
-                    <div class="absolute top-4 left-4 md:top-6 md:left-6 xl:top-8 xl:left-8">
-                      <span class="ml-auto px-4 py-1 rounded-full bg-primary-100 text-sm md:text-base xl:text-lg font-medium text-primary-700">
-                        {project.category}
-                      </span>
-                    </div>
-                    <img
-                      src={project.cover_image}
-                      alt={`Foto del proyecto ${project.title}`}
-                      class="bg-primary-200 object-cover w-full h-44 md:h-96"
-                    />
-                    <div class="flex flex-col w-full bg-gray-50 py-5 px-4 gap-4 md:pt-9 md:pb-6 md:px-8 md:gap-5 xl:px-10 xl:pt-10 xl:gap-6">
-                      <div class="flex flex-col gap-2 md:gap-2.5 xl:gap-3">
-                        <h3 class="text-xl md:text-2xl xl:text-3xl font-semibold text-gray-800">
-                          {project.title}
-                        </h3>
-                        <p class="md:text-lg xl:text-xl text-gray-800 line-clamp-6">
-                          {project.description}
-                        </p>
-                      </div>
-                      <a
-                        href={`/project/${project.id}`}
-                        class="text-primary-600 md:text-lg xl:text-xl font-semibold hover:underline ml-auto mt-auto"
-                      >
-                        Ver proyecto
-                      </a>
-                    </div>
-                  </article>
+                    title={project.title}
+                    description={project.description}
+                    cover_image={project.cover_image}
+                    category={project.category}
+                  />
                 ))}
             </div>
           </div>

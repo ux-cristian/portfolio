@@ -1,6 +1,6 @@
 export const projects = [
   {
-    id: "rediseño-P&C",
+    id: "seiz_redesign",
     cover_image: "/projects/p&c/p&c_cover.webp",
     category: "Rediseño UI",
     title: "Rediseño de SEIZ para P&C",
@@ -17,7 +17,7 @@ export const projects = [
                 title: "Priorización y cronograma",
                 description: "Usé la Matriz Eisenhower para priorizar las incidencias y definí un cronograma de trabajo.",
                 type: "image/webp",
-                url: "/projects/p&c/p&c_multimedia_1.webp",
+                url: "/projects/p&c/p&c_1.webp",
             },
             {
                 title: "Búsqueda de patrones",

@@ -6,20 +6,27 @@ const {
   title = "Título del proyecto",
   category = "Categoria",
   description = "Descripción.",
-  imageUrl = "#",
-  projectId,
+  cover_image = undefined,
+  imageUrl = undefined,
+  id: projectId, 
+  projectId: projectIdAlias,
   href,
 } = Astro.props;
+
+const resolvedProjectId = projectId ?? projectIdAlias;
+const resolvedCoverImage = cover_image ?? imageUrl ?? '#';
+
+const hrefUrl = href ?? (resolvedProjectId ? `/project/${resolvedProjectId}` : '#');
 ---
 
 <article
   id={projectId}
   class="group flex flex-wrap rounded-2xl md:rounded-4xl bg-gray-50 hover:shadow-xl transition-shadow duration-300 cursor-pointer"
-  onclick={`window.location.href='${href}'`}
+  onclick={`window.location.href='${hrefUrl}'`}
 >
   <div class="relative flex-1 basis-1/2 min-w-80 overflow-hidden">
     <img
-      src={imageUrl}
+      src={resolvedCoverImage}
       alt={`Foto del proyecto ${title}`}
       class="w-full h-60 md:h-full border-[4px] md:border-[5px] xl:border-[6px] border-primary-200 rounded-2xl md:rounded-4xl object-cover"
     />
@@ -40,7 +47,7 @@ const {
       <Tag size="xs">
         {category}
       </Tag>
-      <a href={href} class="flex items-center gap-1.5 md:gap-2 ml-auto font-brand font-bold text-primary-600 md:text-lg xl:text-xl">
+      <a href={hrefUrl} class="flex items-center gap-1.5 md:gap-2 ml-auto font-brand font-bold text-primary-600 md:text-lg xl:text-xl">
         Ver proyecto
         <ArrowRightIcon class="hidden group-hover:block size-5 md:size-6 xl:size-7 fill-primary-600"/>
       </a>
