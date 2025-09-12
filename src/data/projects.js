@@ -1,5 +1,83 @@
 export const projects = [
   {
+    id: "portfolio",
+    cover_image: "/projects/portfolio/portfolio_cover.webp",
+    category: "Diseño UX y Desarrollo web",
+    title: "Portafolio",
+    description: "Brindar a l@s reclutadores información relevante para que analicen mi proceso de diseño y experiencia.",
+    details: {
+        context: "Un portafolio es hoy una herramienta esencial para conseguir un buen empleo en UX. L@s reclutadores revisan decenas de propuestas en busca de talento que se ajuste a sus necesidades, por lo que es clave crear un portafolio que destaque. Este proyecto me retó, me enseñó mucho y lo desarrollé con dedicación, disfrutando el proceso creativo.",
+        client: "Proyecto personal",
+        date: "Abril 2025 - actualidad",
+        challenge: "Destacar entre cientos de portafolios y brindar a l@s reclutadores información clara y relevante sobre mis habilidades, experiencia y proceso de diseño.",
+        solution: "Diseñé y desarrollé un portafolio integrando buenas prácticas de diseño visual y contenido enfocado. Utilicé Astro y Tailwind CSS para optimizar la experiencia de desarrollo, además de implementar Hotjar para analizar comportamiento de usuarios.",
+        role: "Asumí todos los roles del proyecto: investigación, diseño visual, contenido y desarrollo web.",
+        process: [
+            {
+                title: "Un inicio caótico",
+                description: "...pero lleno de aprendizajes. Durante dos meses probé Webflow y Framer, pero sus planes gratuitos no me convencieron. Por eso, decidí usar Astro, también por su velocidad y compatibilidad con componentes. Inicialmente, sin mucha planificación y basándome en lo que escuchaba en podcasts, videos y blogs sobre lo que era importante en un portafolio construí un MVP con secciones básicas: Header, Hero, About, Experience, Projects y Footer.",
+                type: "image/webp",
+                url: "/projects/portfolio/portfolio_1.webp",
+            },
+            {
+                title: "El valor del feedback",
+                description: "Texto en proceso",
+                type: "image/webp",
+                url: "/projects/portfolio/portfolio_2.webp",
+            },
+            {
+                title: "Una pausa y reflexión",
+                description: "En este punto pensé «¿Por qué no abordar mi portafolio como un proyecto UX?» Siendo esta la excusa para aplicar los conceptos de un nuevo libro que estaba leyendo: Solving product design exercises - Artiom Dashinsky. Aunque su enfoque no es ser una metodología de diseño, proporciona un marco muy interesante para abordar desafíos. Le dí mi propia interpretación y enfoque de Design Thinking. Las repuestas a las preguntas propuestas por este marco, las he respondido y documentado en Notion (ver respuestas).",
+                type: "image/webp",
+                url: "/projects/portfolio/portfolio_3.webp",
+            },
+            {
+                title: "1. Empatizar",
+                description: "Siguiendo la metodología 5W1H, propuesta en el libro, asocié las primeras 4 preguntas del marco de trabajo (Why?, Who?, When and where?) con la primera etapa del Design Thinking. Además, una buen dinámica de UX, deberá estar abierta a la investigación en cualquier etapa del proceso de diseño, entendiendo que es el pilar fundamental y diferencial como diseñadores. En este punto, con la información recolectada, se puede generar diversos entregables como: mapas de empatía, mapa de la propuesta de valor, mapas de recorrido del usuario, etc. En este caso en particular, he decidido plasmarlo en un user-persona (ver user-persona) generada con una investigación profunda realizada con Gemini (ver investigación). Es importante aclarar, que esta es una representación ficticia de los usuarios reales, por lo que se debe ir refinando a medida que se recopilen datos reales. Un recurso valioso compartido por Cris Busquets que me a ayudado a validar la user persona es el siguiente: «¿Qué buscan l@s reclutadores en un portfolio UI/UX?»  (ver recurso)",
+                type: "image/webp",
+                url: "/projects/portfolio/portfolio_4.webp",
+            },
+            {
+                title: "2. Definir",
+                description: "En esta etapa, respondiendo a la quinta pregunta (What?), liste con ayuda de gemini (ver lista) las funcionalidades que debería tener el portafolio. Además, tuve en cuenta el feedback proporcionado por la comunidad y las métricas recolectadas en Hotjar. Lo que me facilitó la definición y priorización de funcionalidades y tareas en las que debía trabajar. Siguiendo la dinámica del libro, la priorización se hizo mediante una matriz de impacto/esfuerzo. ",
+                type: "image/webp",
+                url: "/projects/portfolio/portfolio_5.webp",
+            },
+            {
+                title: "3. Idear",
+                description: "Realicé wireframes para organizar la información del sitio en base a la prioridad definida en el paso anterior: Hero con un vistazo rápido a mi perfil.Proyectos destacados con más visibilidad.Casos de estudio priorizando contenido.Experiencia con enlaces clicables a las empresar.Sección ampliada de “Más sobre mí”.En otros procesos de diseño podríamos generar: userflows, wireframes, user journeys, site maps, etc.",
+                type: "image/webp",
+                url: "/projects/portfolio/portfolio_6.webp",
+            },
+            {
+                title: "4. Prototipar",
+                description: "Debido a que ya tenía el prototipo en alta fidelidad, empecé a iterar sobre esa versión y siguiendo las ideas definidas en los wireframes. Esta vez decidí hacer unos ajustes a la UI que reflejen más mi personalidad, añadiendo elementos visuales que me identifiquen, como lo son las curvas de nivel, ya que conectan con mi origen. También cambié la tipografía y realicé unos ajustes para que sea más cómoda de leer.",
+                type: "image/gif",
+                url: "/projects/portfolio/portfolio_7.gif",
+            },
+            {
+                title: "5. Validar",
+                description: "Tengo la hipótesis que con el nuevo enfoque dado, se mostrará más el impacto y se generarán contactos. Mis objetivos de investigación/validación son claros: Saber si con la nueva manera de presentar el contenido disminuyen las deserciones (hacen scroll sobre todo el home del portafolio).Validar mediante los mapas de scroll y videos de Hotjar si los usuarios navegan sobre el caso de estudio completo.Conocer los puntos donde los usuarios dan más clicks para dar enfoque a ese contenido.El proceso sigue abierto: considero que un software es un sistema vivo y en evolución. Por eso, sino es muy atrevido de mi parte, quisiera pedirle que como reclutador y usuario de mi portafolio, me regale un comentario de feedback en el siguiente correo: cristian08nc@gmail.com",
+                type: "image/webp",
+                url: "/projects/portfolio/portfolio_8.webp",
+            },
+            {
+                title: "Handoff",
+                description: "Organicé el archivo de figma (ver archivo) como si fuese a entregarlo a otro equipo, aunque el desarrollo lo hiciera yo mismo. Esto me permitió agilizar cambios y pedir apoyo puntual a IA en componentes específicos. Si desea, puede visitar el repositorio público donde podrá ver el código de este proyecto (ver repositorio).",
+                type: "image/webp",
+                url: "/projects/portfolio/portfolio_9.webp",
+            },
+        ],
+        learnings: [
+            "El feedback e iteración basado en datos es fundamental en un proceso UX y nunca es tarde para realizar una investigación de usuarios. ",
+            "Abordar el portafolio como un proyecto real me permitió reflexionar sobre mi propuesta de valor como diseñador.",
+            "La IA puede desbloquear bloqueos creativos en investigación, priorización o desarrollo puntual.",
+            "Empezar por la interfaz  puede ser contraproducente y llevar a retrabajo.",
+            "En productos de marca, el contenido es tan importante como lo visual."
+        ]
+      }
+  },
+  {
     id: "seiz_redesign",
     cover_image: "/projects/seiz/seiz_cover.webp",
     category: "Diseño UX",
