@@ -19,30 +19,74 @@ Inside of your Astro project, you'll see the following folders and files:
 ```text
 /
 ├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+# Portafolio — Cristian Narváez
+
+Este repositorio contiene el sitio estático del portafolio personal construido con Astro y TailwindCSS. Incluye la estructura del sitio, los componentes reutilizables y los datos de los proyectos que se muestran en la web.
+
+## Descripción
+
+Proyecto: sitio web tipo portafolio para mostrar proyectos, experiencia y contacto.
+
+- Framework: Astro
+- Estilos: Tailwind CSS
+- Contenido estático y multimedia en `public/` y `src/assets/`
+
+## Requisitos
+
+- Node.js (recomendado >= 18)
+- npm o pnpm como gestor de paquetes
+
+## Instalación y desarrollo
+
+Clona el repositorio, instala dependencias y arranca el servidor de desarrollo:
+
+```bash
+npm install
+npm run dev
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Por defecto Astro levantará el servidor de desarrollo y lo hará accesible en `http://localhost:4321` (u otro puerto si está ocupado).
 
-## 🧞 Commands
+## Scripts disponibles
 
-All commands are run from the root of the project, from a terminal:
+Los scripts definidos en `package.json` son:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+- `npm run dev` — Inicia el servidor de desarrollo con Astro.
+- `npm run build` — Genera la versión de producción en `./dist`.
+- `npm run preview` — Sirve la carpeta de build para previsualizar el sitio.
+- `npm run astro` — Ejecuta comandos de la CLI de Astro (ej.: `npm run astro -- --help`).
 
-## 👀 Want to learn more?
+## Estructura principal del proyecto
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Algunos archivos y carpetas relevantes:
+
+- `public/` — Archivos estáticos (imágenes, multimedia, favicon, etc.).
+- `src/` — Código fuente del sitio:
+	- `src/components/` — Componentes Astro organizados en `atoms/`, `molecules/` y `organisms/`.
+	- `src/pages/` — Páginas del sitio (`index.astro`, rutas de proyecto en `src/pages/project/[id].astro`).
+	- `src/data/` — Datos en formato JS (por ejemplo `projects.js`, `works.js`) que alimentan las páginas.
+	- `src/assets/` — Iconos y vectores usados en el sitio.
+- `astro.config.mjs` — Configuración de Astro.
+- `package.json` — Dependencias y scripts.
+
+## Añadir o editar proyectos
+
+Los proyectos mostrados en la web se encuentran en `src/data/projects.js`. Para agregar o editar una entrada:
+
+1. Añade o actualiza el objeto correspondiente en `src/data/projects.js` siguiendo la estructura existente.
+2. Sube los recursos multimedia (imágenes/videos) en `public/projects/` o en la carpeta apropiada dentro de `public/`.
+3. Verifica en desarrollo con `npm run dev`.
+
+## Despliegue
+
+1. Genera la build de producción: `npm run build`.
+2. Sube el contenido de `./dist` a tu proveedor de hosting estático (Vercel, Netlify, GitHub Pages, etc.).
+
+Notas:
+- Vercel y Netlify detectan automáticamente proyectos basados en Astro. En Vercel, configura como comando de build `npm run build` y carpeta de salida `dist`.
+
+## Contribuciones y contacto
+
+Si quieres sugerir mejoras o corregir algo, abre un issue o un PR. Para contacto directo, revisa la sección de contacto en la web del portafolio.
+
+---
