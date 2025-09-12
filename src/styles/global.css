@@ -50,3 +50,31 @@
         --animate-wiggle: wiggle 20s linear infinite;
     }
 }
+
+/* Header / back-to-top styles */
+#site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 40;
+    transition: transform 240ms cubic-bezier(.4,0,.2,1), opacity 200ms ease-in-out;
+}
+
+.header-hidden {
+    transform: translateY(-110%);
+    opacity: 0;
+}
+
+#back-to-top {
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 180ms ease, opacity 180ms ease;
+    pointer-events: none;
+}
+
+#back-to-top.show {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}

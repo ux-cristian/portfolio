@@ -1,5 +1,7 @@
 ---
 import Tab from '../atoms/Tab.astro';
+import Button from '../atoms/Button.astro';
+import OpenInNewIcon from '../../assets/icons/open_in_new.svg';
 
 interface Props {
   behavior?: "navigationType" | "redirectionType";
@@ -8,44 +10,45 @@ interface Props {
 const { behavior = "navigationType"} = Astro.props;
 ---
 
-<ul class="flex flex-col items-center md:items-end rounded-xl absolute right-8 gap-7 px-6 py-8 font-medium bg-gray-50 shadow-xl md:gap-4 md:py-4 md:relative md:flex-row md:bg-transparent md:px-0 md:shadow-none">
-    <li>
-        <Tab href={(behavior==="redirectionType") ? "/#about" : "#about"} tabId="a">Sobre mí</Tab>
-    </li>
-    <li>
-        <Tab href={(behavior==="redirectionType") ? "/#projects" : "#projects"} tabId="c">Proyectos</Tab>
-    </li>
-    <li>
-        <Tab href={(behavior==="redirectionType") ? "/#work-experience" : "#work-experience"} tabId="b">Experiencia</Tab>
-    </li>
-    <li>
-        <Tab href="https://ux-cristian.github.io/CV-Cristian.pdf" tabId="cv" target="_blank">Ver CV</Tab>
-    </li>
-</ul>
+<nav class="flex items-center justify-between">
 
-<script>
-    const sections = document.querySelectorAll('section[id]');
-    const tabs = document.querySelectorAll('[data-tab]');
+  <input type="checkbox" id="menu-toggle" class="hidden peer">
 
-    const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.4
-    };
+ <label 
+    for="menu-toggle" 
+    class="xl:hidden flex flex-col justify-center items-center w-10 h-10 cursor-pointer
+        transition-all duration-300
+        peer-checked:[&>span:nth-child(1)]:rotate-45 peer-checked:[&>span:nth-child(1)]:translate-y-[8px]
+        peer-checked:[&>span:nth-child(2)]:opacity-0
+        peer-checked:[&>span:nth-child(3)]:-rotate-45 peer-checked:[&>span:nth-child(3)]:-translate-y-[8px]"
+    >
+    <span class="block w-6 h-0.5 bg-primary-600 transition-all duration-300 group-hover:bg-primary-800"></span>
+    <span class="block w-6 h-0.5 bg-primary-600 mt-1.5 transition-all duration-300 group-hover:bg-primary-800"></span>
+    <span class="block w-6 h-0.5 bg-primary-600 mt-1.5 transition-all duration-300 group-hover:bg-primary-800"></span>
+    </label>
 
-    const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-        tabs.forEach(tab => tab.classList.remove('active'));
-        
-        const sectionId = entry.target.id;
-        const correspondingTab = document.querySelector(`[href*="${sectionId}"]`);
-        if (correspondingTab) {
-            correspondingTab.classList.add('active');
-        }
-        }
-    });
-    }, observerOptions);
-
-    sections.forEach(section => observer.observe(section));
-</script>
+  <ul class="
+    flex flex-col gap-4 absolute top-[72px] right-4 left-4 bg-gray-50 rounded-xl shadow-lg p-6 
+    opacity-0 translate-y-4 pointer-events-none transition-all duration-300
+    peer-checked:opacity-100 peer-checked:translate-y-0 peer-checked:pointer-events-auto
+    xl:flex-row xl:items-center xl:static xl:bg-transparent xl:shadow-none xl:opacity-100 xl:translate-y-0 xl:pointer-events-auto xl:p-0
+  ">
+    <li class="w-fit ml-auto mr-auto">
+      <Tab href={(behavior==="redirectionType") ? "/#projects" : "#projects"} tabId="c">Proyectos</Tab>
+    </li >
+    <li class="w-fit ml-auto mr-auto">
+      <Tab href={(behavior==="redirectionType") ? "/#work-experience" : "#work-experience"} tabId="b">Experiencia</Tab>
+    </li>
+    <li class="w-fit ml-auto mr-auto">
+      <Tab href={(behavior==="redirectionType") ? "/#about" : "#about"} tabId="a">Sobre mí</Tab>
+    </li>
+    <li class="w-fit ml-auto mr-auto xl:ml-2">
+      <Button href="https://ux-cristian.github.io/CV-Cristian.pdf" target="_blank" type="outline">
+        Ver CV <OpenInNewIcon class="size-[18px] md:size-5 xl:size-6 fill-primary-600"/>
+      </Button>
+    </li>
+    <li class="w-fit ml-auto mr-auto xl:ml-2">
+      <Button href={(behavior==="redirectionType") ? "/#contact" : "#contact"}>Contactar</Button>
+    </li>
+  </ul>
+</nav>
