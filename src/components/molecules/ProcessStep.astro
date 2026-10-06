@@ -1,0 +1,43 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import RichText from "../atoms/RichText.astro";
+
+interface Props {
+  step: CollectionEntry<"projects">["data"]["process"][number];
+}
+
+const { step } = Astro.props;
+const { media } = step;
+
+const mediaClass =
+  "bg-[url('../assets/vectors/level_curves.svg'),linear-gradient(to_top,theme(colors.primary.100),theme(colors.primary.200))] bg-cover w-full outline-[4px] md:outline-[5px] xl:outline-[6px] outline-primary-200 min-h-36 md:min-h-80 xl:min-h-[500px] rounded-xl md:rounded-3xl xl:rounded-4xl";
+---
+
+<div class="flex flex-col gap-4 md:gap-8">
+  {media.type === "image" && (
+    <Image
+      src={media.src}
+      alt={step.title}
+      widths={[800, 1600, 2400]}
+      sizes="(min-width: 1280px) 1200px, 100vw"
+      class={mediaClass}
+    />
+  )}
+  {media.type === "gif" && (
+    <img src={media.src} alt={step.title} loading="lazy" decoding="async" class={mediaClass} />
+  )}
+  {media.type === "video" && (
+    <video autoplay muted loop playsinline preload="metadata" aria-label={step.title} class={mediaClass}>
+      <source src={media.src} type="video/mp4" />
+      Su navegador no soporta la etiqueta de vídeo.
+    </video>
+  )}
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-6">
+    <h3 class="font-brand font-semibold text-xl md:text-2xl xl:text-3xl md:ml-10 xl:ml-14">
+      {step.title}
+    </h3>
+    <RichText content={step.description} class="col-span-2 text-base md:text-lg xl:text-xl md:mt-2" />
+  </div>
+</div>

@@ -1,75 +1,87 @@
 ---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  type?: "website" | "article";
+  noindex?: boolean;
+}
+
 const {
   title = "Cristian Narváez (Diseñador UX)",
   description = "Portafolio de Cristian Narváez — Diseñador UX. Proyectos, experiencia y contacto.",
   image = "/profilePhoto.webp",
-  canonical = undefined,
+  imageAlt = "Foto de perfil de Cristian Narváez",
+  type = "website",
+  noindex = false,
 } = Astro.props;
 
-const siteOrigin = import.meta.env.SITE ? String(import.meta.env.SITE).replace(/\/$/, '') : 'https://uxcristian.site';
-const imageUrl = siteOrigin ? new URL(image, siteOrigin).toString() : image;
-
-const pageUrl = canonical
-  ? (canonical.startsWith('http') ? canonical : siteOrigin ? new URL(canonical, siteOrigin).toString() : canonical)
-  : siteOrigin || undefined;
+const site = Astro.site ?? new URL("https://uxcristian.site");
+const pageUrl = new URL(Astro.url.pathname, site).toString();
+const imageUrl = new URL(image, site).toString();
 ---
 
 <!doctype html>
 <html lang="es" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/webp" href="/meta_icon.webp" />
     <meta name="generator" content={Astro.generator} />
 
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={pageUrl} />}
 
-    {pageUrl ? <link rel="canonical" href={pageUrl} /> : null}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+    />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
     <meta property="og:site_name" content="Cristian Narváez" />
+    <meta property="og:locale" content="es_CO" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={imageUrl} />
-    <meta property="og:image:alt" content="Foto de perfil de Cristian Narváez" />
-    {pageUrl ? <meta property="og:url" content={pageUrl} /> : null}
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta property="og:url" content={pageUrl} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageUrl} />
-    <!-- Optionally add twitter:site and twitter:creator if provided in site config -->
 
     <!-- JSON-LD (Person) -->
-    <script type="application/ld+json">
-      {JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Person",
-        name: "Cristian Narváez",
-        url: siteOrigin || undefined,
-        image: imageUrl || undefined,
-        jobTitle: "Diseñador UX",
-        description,
-        sameAs: [
-          "https://www.linkedin.com/in/cristian-narvaez/"
-        ]
-      })}
-    </script>
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: "Cristian Narváez",
+      url: site.toString(),
+      image: new URL("/profilePhoto.webp", site).toString(),
+      jobTitle: "Diseñador UX",
+      sameAs: [
+        "https://www.linkedin.com/in/ux-cristian/",
+        "https://www.behance.net/cristianarvez",
+        "https://github.com/ux-cristian",
+      ],
+    })} />
 
-  <script src="/hotjar.js" async></script>
+    <script src="/hotjar.js" async></script>
   </head>
   <body class="bg-primary-100 font-sans">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[10000] focus:rounded-full focus:bg-primary-600 focus:px-6 focus:py-3 focus:font-brand focus:font-semibold focus:text-primary-50"
+    >
+      Saltar al contenido
+    </a>
     <slot />
   </body>
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>

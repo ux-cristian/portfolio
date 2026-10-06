@@ -48,22 +48,28 @@ Los scripts definidos en `package.json` son:
 
 Algunos archivos y carpetas relevantes:
 
-- `public/` — Archivos estáticos (imágenes, multimedia, favicon, etc.).
+- `public/` — Archivos estáticos servidos tal cual (CV, favicon, GIFs y vídeos de los proyectos).
 - `src/` — Código fuente del sitio:
 	- `src/components/` — Componentes Astro organizados en `atoms/`, `molecules/` y `organisms/`.
-	- `src/pages/` — Páginas del sitio (`index.astro`, rutas de proyecto en `src/pages/project/[id].astro`).
-	- `src/data/` — Datos en formato JS (por ejemplo `projects.js`, `works.js`) que alimentan las páginas.
-	- `src/assets/` — Iconos y vectores usados en el sitio.
+	- `src/templates/` — `Layout` (HTML base y SEO), `Section` y `Container` (estructura de las secciones).
+	- `src/pages/` — Páginas del sitio (`index.astro`, `404.astro` y los casos de estudio en `src/pages/project/[id].astro`).
+	- `src/content/projects/` — Un caso de estudio por carpeta (`index.md` + sus imágenes).
+	- `src/content.config.ts` — Esquema que valida los campos de cada caso de estudio.
+	- `src/data/works.js` — Experiencia laboral.
+	- `src/assets/` — Iconos, vectores y fotos.
 - `astro.config.mjs` — Configuración de Astro.
 - `package.json` — Dependencias y scripts.
 
 ## Añadir o editar proyectos
 
-Los proyectos mostrados en la web se encuentran en `src/data/projects.js`. Para agregar o editar una entrada:
+Cada caso de estudio vive en `src/content/projects/<id>/index.md`; el nombre de la carpeta es la URL (`/project/<id>/`). Para añadir uno:
 
-1. Añade o actualiza el objeto correspondiente en `src/data/projects.js` siguiendo la estructura existente.
-2. Sube los recursos multimedia (imágenes/videos) en `public/projects/` o en la carpeta apropiada dentro de `public/`.
-3. Verifica en desarrollo con `npm run dev`.
+1. Copia una carpeta existente, renómbrala y edita el frontmatter de `index.md`. El campo `order` define la posición en la home.
+2. Los textos (`context`, `challenge`, `role`, `solution`, `description` de cada paso y `learnings`) aceptan Markdown: `**negrita**`, `*cursiva*`, `[enlace](https://...)` y listas con `- `. Los enlaces externos se abren solos en otra pestaña.
+3. Multimedia de cada paso del proceso (`media`):
+	- `type: image` — la imagen va dentro de la carpeta del proyecto (`src: ./imagen.webp`). Astro la optimiza y genera tamaños para móvil.
+	- `type: gif` o `type: video` — el archivo va en `public/projects/<id>/` (`src: /projects/<id>/archivo.gif`).
+4. Verifica en desarrollo con `npm run dev`. Si falta un campo o una imagen no existe, la build lo indica con un error.
 
 ## Despliegue
 

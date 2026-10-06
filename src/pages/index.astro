@@ -1,6 +1,4 @@
 ---
-import "../styles/global.css";
-
 import Layout from '../templates/Layout.astro';
 import Header from "../components/organisms/Header.astro";
 import Hero from '../components/organisms/Hero.astro';
@@ -14,11 +12,13 @@ import Footer from '../components/organisms/Footer.astro';
 
 <Layout>
     <Header/>
-    <Hero />
-    <Skills />
-    <Projects />
-    <WorkExperience />
-    <About />
-    <Contact />
+    <main id="main">
+        <Hero />
+        <Skills />
+        <Projects />
+        <WorkExperience />
+        <About />
+        <Contact />
+    </main>
     <Footer />
 </Layout>

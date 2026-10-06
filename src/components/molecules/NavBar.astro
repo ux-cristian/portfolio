@@ -8,47 +8,85 @@ interface Props {
 }
 
 const { behavior = "navigationType"} = Astro.props;
+
+// En páginas internas las anclas apuntan a la home
+const anchor = (hash: string) => (behavior === "redirectionType" ? `/${hash}` : hash);
 ---
 
-<nav class="flex items-center justify-between">
+<nav id="main-nav" aria-label="Principal" class="group flex items-center justify-between">
 
-  <input type="checkbox" id="menu-toggle" class="hidden peer">
+  <button
+    id="menu-toggle"
+    type="button"
+    aria-expanded="false"
+    aria-controls="main-menu"
+    aria-label="Abrir menú"
+    class="xl:hidden flex flex-col justify-center items-center w-10 h-10 cursor-pointer rounded-full
+        transition-all duration-300 focus-visible:outline-2 focus-visible:outline-primary-600
+        group-data-open:[&>span:nth-child(1)]:rotate-45 group-data-open:[&>span:nth-child(1)]:translate-y-[8px]
+        group-data-open:[&>span:nth-child(2)]:opacity-0
+        group-data-open:[&>span:nth-child(3)]:-rotate-45 group-data-open:[&>span:nth-child(3)]:-translate-y-[8px]"
+  >
+    <span class="block w-6 h-0.5 bg-primary-600 transition-all duration-300"></span>
+    <span class="block w-6 h-0.5 bg-primary-600 mt-1.5 transition-all duration-300"></span>
+    <span class="block w-6 h-0.5 bg-primary-600 mt-1.5 transition-all duration-300"></span>
+  </button>
 
- <label 
-    for="menu-toggle" 
-    class="xl:hidden flex flex-col justify-center items-center w-10 h-10 cursor-pointer
-        transition-all duration-300
-        peer-checked:[&>span:nth-child(1)]:rotate-45 peer-checked:[&>span:nth-child(1)]:translate-y-[8px]
-        peer-checked:[&>span:nth-child(2)]:opacity-0
-        peer-checked:[&>span:nth-child(3)]:-rotate-45 peer-checked:[&>span:nth-child(3)]:-translate-y-[8px]"
-    >
-    <span class="block w-6 h-0.5 bg-primary-600 transition-all duration-300 group-hover:bg-primary-800"></span>
-    <span class="block w-6 h-0.5 bg-primary-600 mt-1.5 transition-all duration-300 group-hover:bg-primary-800"></span>
-    <span class="block w-6 h-0.5 bg-primary-600 mt-1.5 transition-all duration-300 group-hover:bg-primary-800"></span>
-    </label>
-
-  <ul class="
-    flex flex-col gap-4 absolute top-[72px] right-4 left-4 bg-gray-50 rounded-xl shadow-lg p-6 
-    opacity-0 translate-y-4 pointer-events-none transition-all duration-300
-    peer-checked:opacity-100 peer-checked:translate-y-0 peer-checked:pointer-events-auto
-    xl:flex-row xl:items-center xl:static xl:bg-transparent xl:shadow-none xl:opacity-100 xl:translate-y-0 xl:pointer-events-auto xl:p-0
+  <ul id="main-menu" class="
+    flex flex-col gap-4 absolute top-[72px] right-4 left-4 bg-gray-50 rounded-xl shadow-lg p-6
+    invisible opacity-0 translate-y-4 pointer-events-none transition-all duration-300
+    group-data-open:visible group-data-open:opacity-100 group-data-open:translate-y-0 group-data-open:pointer-events-auto
+    xl:flex-row xl:items-center xl:static xl:bg-transparent xl:shadow-none xl:visible xl:opacity-100 xl:translate-y-0 xl:pointer-events-auto xl:p-0
   ">
     <li class="w-fit ml-auto mr-auto">
-      <Tab href={(behavior==="redirectionType") ? "/#projects" : "#projects"} tabId="c">Proyectos</Tab>
-    </li >
-    <li class="w-fit ml-auto mr-auto">
-      <Tab href={(behavior==="redirectionType") ? "/#work-experience" : "#work-experience"} tabId="b">Experiencia</Tab>
+      <Tab href={anchor("#projects")}>Proyectos</Tab>
     </li>
     <li class="w-fit ml-auto mr-auto">
-      <Tab href={(behavior==="redirectionType") ? "/#about" : "#about"} tabId="a">Sobre mí</Tab>
+      <Tab href={anchor("#work-experience")}>Experiencia</Tab>
+    </li>
+    <li class="w-fit ml-auto mr-auto">
+      <Tab href={anchor("#about")}>Sobre mí</Tab>
     </li>
     <li class="w-fit ml-auto mr-auto xl:ml-2">
       <Button href="/cv_cristian_narvaez.pdf" target="_blank" type="outline">
-        Ver CV <OpenInNewIcon class="size-[18px] md:size-5 xl:size-6 fill-primary-600"/>
+        Ver CV <OpenInNewIcon class="size-[18px] md:size-5 xl:size-6 fill-primary-600" aria-hidden="true"/>
+        <span class="sr-only">(se abre en otra pestaña)</span>
       </Button>
     </li>
     <li class="w-fit ml-auto mr-auto xl:ml-2">
-      <Button href={(behavior==="redirectionType") ? "/#contact" : "#contact"}>Contactar</Button>
+      <Button href={anchor("#contact")}>Contactar</Button>
     </li>
   </ul>
 </nav>
+
+<script>
+  const nav = document.getElementById('main-nav');
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('main-menu');
+
+  if (nav && toggle && menu) {
+    const setOpen = (open: boolean) => {
+      nav.toggleAttribute('data-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    };
+
+    toggle.addEventListener('click', () => setOpen(!nav.hasAttribute('data-open')));
+
+    // Cierra al elegir una opción, con Escape o al hacer clic fuera
+    menu.addEventListener('click', (event) => {
+      if ((event.target as HTMLElement).closest('a')) setOpen(false);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && nav.hasAttribute('data-open')) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!nav.contains(event.target as Node)) setOpen(false);
+    });
+  }
+</script>

@@ -1,0 +1,24 @@
+---
+import type { HTMLTag } from "astro/types";
+import Container from "./Container.astro";
+
+interface Props {
+  id?: string;
+  as?: HTMLTag;
+  spacing?: "default" | "compact";
+  class?: string;
+}
+
+const { id, as: Tag = "section", spacing = "default", class: className } = Astro.props;
+
+const spacings = {
+  default: "py-16 md:py-20 xl:py-28",
+  compact: "py-10 md:py-16 xl:py-20",
+};
+---
+
+<Tag id={id} class:list={["flex w-full", spacings[spacing], className]}>
+  <Container>
+    <slot />
+  </Container>
+</Tag>

@@ -1,43 +1,40 @@
 ---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
 import Tag from '../atoms/Tag.astro';
 import ArrowRightIcon from '../../assets/icons/arrow_right_alt.svg';
 
-const {
-  title = "Título del proyecto",
-  category = "Categoria",
-  description = "Descripción.",
-  cover_image = undefined,
-  imageUrl = undefined,
-  id: projectId, 
-  projectId: projectIdAlias,
-  href,
-} = Astro.props;
+interface Props {
+  project: CollectionEntry<"projects">;
+}
 
-const resolvedProjectId = projectId ?? projectIdAlias;
-const resolvedCoverImage = cover_image ?? imageUrl ?? '#';
-
-const hrefUrl = href ?? (resolvedProjectId ? `/project/${resolvedProjectId}` : '#');
+const { project } = Astro.props;
+const { title, category, description, cover } = project.data;
+const href = `/project/${project.id}/`;
 ---
 
+<!-- Toda la tarjeta es clicable gracias al ::after del enlace del título -->
 <article
-  id={projectId}
-  class="group flex flex-wrap rounded-2xl md:rounded-4xl bg-gray-50 hover:shadow-xl transition-shadow duration-300 cursor-pointer"
-  onclick={`window.location.href='${hrefUrl}'`}
+  class="group relative flex flex-wrap rounded-2xl md:rounded-4xl bg-gray-50 hover:shadow-xl transition-shadow duration-300 has-[a:focus-visible]:outline-4 has-[a:focus-visible]:outline-offset-4 has-[a:focus-visible]:outline-primary-600"
 >
-  <div class="relative flex-1 basis-1/2 min-w-80 overflow-hidden">
-    <img
-      src={resolvedCoverImage}
-      alt={`Foto del proyecto ${title}`}
+  <div class="relative flex-1 basis-1/2 min-w-[min(20rem,100%)] overflow-hidden">
+    <Image
+      src={cover}
+      alt={`Portada del proyecto ${title}`}
+      widths={[640, 960, 1280, 1920]}
+      sizes="(min-width: 1280px) 640px, (min-width: 768px) 50vw, 100vw"
       class="w-full min-h-60 md:min-h-80 xl:min-h-96 h-full border-[4px] md:border-[5px] xl:border-[6px] border-primary-200 rounded-2xl md:rounded-4xl object-cover"
     />
     <div class="absolute inset-0 bg-primary-950/16 rounded-2xl md:rounded-4xl"></div>
   </div>
   <div
-    class="flex-1 basis-1/2 min-w-80 flex flex-col justify-between p-4 gap-4 md:pt-9 md:pb-6 md:px-8 md:gap-5 xl:px-10 xl:pt-8"
+    class="flex-1 basis-1/2 min-w-[min(20rem,100%)] flex flex-col justify-between p-4 gap-4 md:pt-9 md:pb-6 md:px-8 md:gap-5 xl:px-10 xl:pt-8"
   >
     <div class="flex flex-col gap-1 md:gap-2 xl:gap-4">
       <h3 class="font-brand text-xl md:text-2xl xl:text-3xl font-semibold text-gray-800">
-        {title}
+        <a href={href} class="after:absolute after:inset-0 after:rounded-2xl md:after:rounded-4xl focus-visible:outline-none">
+          {title}
+        </a>
       </h3>
       <p class="text-base md:text-lg xl:text-xl text-gray-800 line-clamp-4">
         {description}
@@ -47,10 +44,10 @@ const hrefUrl = href ?? (resolvedProjectId ? `/project/${resolvedProjectId}` : '
       <Tag size="xs">
         {category}
       </Tag>
-      <a href={hrefUrl} class="flex items-center gap-1.5 md:gap-2 ml-auto font-brand font-bold text-primary-600 md:text-lg xl:text-xl">
+      <span aria-hidden="true" class="flex items-center gap-1.5 md:gap-2 ml-auto font-brand font-bold text-primary-600 md:text-lg xl:text-xl">
         Ver proyecto
-        <ArrowRightIcon class="hidden group-hover:block size-5 md:size-6 xl:size-7 fill-primary-600"/>
-      </a>
+        <ArrowRightIcon class="hidden group-hover:block group-has-[a:focus-visible]:block size-5 md:size-6 xl:size-7 fill-primary-600"/>
+      </span>
     </div>
   </div>
 </article>
