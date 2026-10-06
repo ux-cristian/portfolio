@@ -1,0 +1,33 @@
+---
+import Section from "../../templates/Section.astro";
+import SectionHeading from "../molecules/SectionHeading.astro";
+import Icon from "../atoms/Icon.astro";
+import { useTranslations, type Lang } from "../../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Section id="faq">
+  <div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+    <SectionHeading eyebrow={t.faq.eyebrow} class="lg:sticky lg:top-28 lg:h-fit">{t.faq.title}</SectionHeading>
+
+    <div class="flex flex-col gap-3">
+      {t.faq.items.map(({ q, a }, i) => (
+        <details data-reveal style={`--reveal-delay: ${i * 60}ms`} class="faq-item group glass rounded-3xl" name="faq">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-6 px-6 py-5 font-semibold md:px-7 [&::-webkit-details-marker]:hidden">
+            {q}
+            <span class="flex size-8 shrink-0 items-center justify-center rounded-full border border-line transition-transform duration-300 group-open:rotate-45">
+              <Icon name="plus" class="size-4" />
+            </span>
+          </summary>
+          <p class="px-6 pb-6 leading-relaxed text-pretty text-muted md:px-7">{a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</Section>

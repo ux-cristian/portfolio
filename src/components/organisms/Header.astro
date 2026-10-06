@@ -1,98 +1,17 @@
 ---
-import Logo from "../atoms/Logo.astro";
+import Container from "../../templates/Container.astro";
 import NavBar from "../molecules/NavBar.astro";
+import type { Lang } from "../../i18n";
 
 interface Props {
-  navbarBehavior?: "navigationType" | "redirectionType";
+  lang: Lang;
 }
 
-const {navbarBehavior="navigationType"} = Astro.props;
+const { lang } = Astro.props;
 ---
 
-<header id="site-header" class="w-full">
-    <nav class="bg-primary-100/20 rounded-full backdrop-blur-lg w-full px-5 md:pl-10 md:pr-6">
-      <div class="flex flex-wrap items-center justify-between py-4">
-        <a href="/#" class="py-2">
-          <Logo/>
-        </a>
-        <NavBar behavior={navbarBehavior}/>
-      </div>
-    </nav>
-
-    <button id="back-to-top" aria-label="Volver arriba" title="Volver arriba"
-      class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-primary-600 text-white shadow-lg flex items-center justify-center focus:outline-none"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M12 19V6" />
-        <path d="M5 12l7-7 7 7" />
-      </svg>
-    </button>
-
-    <script>
-      (function(){
-        const header = document.getElementById('site-header');
-        const backBtn = document.getElementById('back-to-top');
-        if(!header || !backBtn) return;
-
-        let _paddingTimeout = 0;
-        function setBodyPadding(){
-          const h = header!.offsetHeight;
-          document.body.style.paddingTop = h + 'px';
-        }
-
-        // Debounced scheduler for resize/orientation/observer events
-        function scheduleSetBodyPadding(){
-          clearTimeout(_paddingTimeout);
-          // small delay to wait for layout to settle
-          _paddingTimeout = window.setTimeout(setBodyPadding, 60);
-        }
-
-        setBodyPadding();
-        window.addEventListener('resize', scheduleSetBodyPadding);
-        window.addEventListener('orientationchange', scheduleSetBodyPadding);
-
-        // Use ResizeObserver to catch CSS-driven height changes (responsive)
-        if ('ResizeObserver' in window) {
-          const ro = new ResizeObserver(scheduleSetBodyPadding);
-          ro.observe(header!);
-          // cleanup on unload
-          window.addEventListener('beforeunload', () => ro.disconnect());
-        }
-
-        let lastScroll = window.pageYOffset || document.documentElement.scrollTop;
-        let ticking = false;
-
-        function onScroll(){
-          const current = window.pageYOffset || document.documentElement.scrollTop;
-
-          // hide header when scrolling down, show when scrolling up
-          if (current > lastScroll && current > 50) {
-            header!.classList.add('header-hidden');
-          } else {
-            header!.classList.remove('header-hidden');
-          }
-
-          // show back-to-top when scrolled more than 300px
-          if (current > 300) {
-            backBtn!.classList.add('show');
-          } else {
-            backBtn!.classList.remove('show');
-          }
-
-          lastScroll = Math.max(0, current);
-          ticking = false;
-        }
-
-        window.addEventListener('scroll', function(){
-          if (!ticking) {
-            window.requestAnimationFrame(onScroll);
-            ticking = true;
-          }
-        }, { passive: true });
-
-        backBtn!.addEventListener('click', function(){
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-      })();
-    </script>
+<header id="site-header" class="group/header sticky top-0 z-40 pt-3 md:pt-4">
+  <Container>
+    <NavBar lang={lang} />
+  </Container>
 </header>

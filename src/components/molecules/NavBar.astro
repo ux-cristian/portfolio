@@ -1,54 +1,86 @@
 ---
-import Tab from '../atoms/Tab.astro';
-import Button from '../atoms/Button.astro';
-import OpenInNewIcon from '../../assets/icons/open_in_new.svg';
+import Button from "../atoms/Button.astro";
+import ThemeToggle from "../atoms/ThemeToggle.astro";
+import Logo from "../atoms/Logo.astro";
+import { localizePath, stripLang, useTranslations, type Lang } from "../../i18n";
 
 interface Props {
-  behavior?: "navigationType" | "redirectionType";
+  lang: Lang;
 }
 
-const { behavior = "navigationType"} = Astro.props;
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const home = localizePath("/", lang);
+const otherLang: Lang = lang === "es" ? "en" : "es";
+const switchHref = localizePath(stripLang(Astro.url.pathname), otherLang);
+
+const links = [
+  { href: `${home}#services`, label: t.nav.services },
+  { href: `${home}#projects`, label: t.nav.projects },
+  { href: `${home}#process`, label: t.nav.process },
+  { href: `${home}#about`, label: t.nav.about },
+];
 ---
 
-<nav class="flex items-center justify-between">
+<nav
+  id="main-nav"
+  aria-label={t.a11y.mainNav}
+  class="group relative isolate flex h-16 items-center justify-between gap-4 pr-2 pl-5 md:pl-6"
+>
+  <!-- Fondo glass en una capa aparte: así el menú móvil (hermano, no hijo) también puede difuminar -->
+  <div class="glass absolute inset-0 -z-10 rounded-full transition-[background,box-shadow] duration-500 group-data-scrolled/header:glass-strong" aria-hidden="true"></div>
 
-  <input type="checkbox" id="menu-toggle" class="hidden peer">
+  <a href={home} aria-label={t.a11y.home} class="text-fg transition-opacity hover:opacity-80">
+    <Logo />
+  </a>
 
- <label 
-    for="menu-toggle" 
-    class="xl:hidden flex flex-col justify-center items-center w-10 h-10 cursor-pointer
-        transition-all duration-300
-        peer-checked:[&>span:nth-child(1)]:rotate-45 peer-checked:[&>span:nth-child(1)]:translate-y-[8px]
-        peer-checked:[&>span:nth-child(2)]:opacity-0
-        peer-checked:[&>span:nth-child(3)]:-rotate-45 peer-checked:[&>span:nth-child(3)]:-translate-y-[8px]"
-    >
-    <span class="block w-6 h-0.5 bg-primary-600 transition-all duration-300 group-hover:bg-primary-800"></span>
-    <span class="block w-6 h-0.5 bg-primary-600 mt-1.5 transition-all duration-300 group-hover:bg-primary-800"></span>
-    <span class="block w-6 h-0.5 bg-primary-600 mt-1.5 transition-all duration-300 group-hover:bg-primary-800"></span>
-    </label>
-
-  <ul class="
-    flex flex-col gap-4 absolute top-[72px] right-4 left-4 bg-gray-50 rounded-xl shadow-lg p-6 
-    opacity-0 translate-y-4 pointer-events-none transition-all duration-300
-    peer-checked:opacity-100 peer-checked:translate-y-0 peer-checked:pointer-events-auto
-    xl:flex-row xl:items-center xl:static xl:bg-transparent xl:shadow-none xl:opacity-100 xl:translate-y-0 xl:pointer-events-auto xl:p-0
-  ">
-    <li class="w-fit ml-auto mr-auto">
-      <Tab href={(behavior==="redirectionType") ? "/#projects" : "#projects"} tabId="c">Proyectos</Tab>
-    </li >
-    <li class="w-fit ml-auto mr-auto">
-      <Tab href={(behavior==="redirectionType") ? "/#work-experience" : "#work-experience"} tabId="b">Experiencia</Tab>
-    </li>
-    <li class="w-fit ml-auto mr-auto">
-      <Tab href={(behavior==="redirectionType") ? "/#about" : "#about"} tabId="a">Sobre mí</Tab>
-    </li>
-    <li class="w-fit ml-auto mr-auto xl:ml-2">
-      <Button href="/cv_cristian_narvaez.pdf" target="_blank" type="outline">
-        Ver CV <OpenInNewIcon class="size-[18px] md:size-5 xl:size-6 fill-primary-600"/>
-      </Button>
-    </li>
-    <li class="w-fit ml-auto mr-auto xl:ml-2">
-      <Button href={(behavior==="redirectionType") ? "/#contact" : "#contact"}>Contactar</Button>
+  <ul
+    id="main-menu"
+    class="flex transition-all duration-300
+      max-lg:glass-strong max-lg:invisible max-lg:absolute max-lg:inset-x-0 max-lg:top-[calc(100%+0.75rem)] max-lg:flex-col max-lg:gap-1 max-lg:rounded-3xl max-lg:p-3 max-lg:opacity-0 max-lg:translate-y-2
+      max-lg:group-data-open:visible max-lg:group-data-open:translate-y-0 max-lg:group-data-open:opacity-100"
+  >
+    {links.map(({ href, label }) => (
+      <li>
+        <a href={href} class="block rounded-full px-4 py-3 text-sm font-medium text-muted transition-colors hover:bg-white/10 hover:text-fg lg:py-2">
+          {label}
+        </a>
+      </li>
+    ))}
+    <li class="sm:hidden">
+      <a href={`${home}#contact`} class="block rounded-full px-4 py-3 text-sm font-semibold text-accent">{t.nav.cta}</a>
     </li>
   </ul>
+
+  <div class="flex items-center gap-1">
+    <a
+      href={switchHref}
+      hreflang={otherLang}
+      lang={otherLang}
+      aria-label={t.nav.switchLangLabel}
+      title={t.nav.switchLangLabel}
+      class="flex h-10 items-center rounded-full px-3 text-xs font-bold tracking-wider text-muted uppercase transition-colors hover:bg-white/10 hover:text-fg"
+    >
+      {otherLang}
+    </a>
+    <ThemeToggle label={t.a11y.toggleTheme} />
+    <div class="ml-1 hidden sm:block">
+      <Button href={`${home}#contact`}>{t.nav.cta}</Button>
+    </div>
+    <button
+      id="menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="main-menu"
+      aria-label={t.a11y.openMenu}
+      data-label-open={t.a11y.openMenu}
+      data-label-close={t.a11y.closeMenu}
+      class="flex size-10 flex-col items-center justify-center gap-1.5 rounded-full transition-colors hover:bg-white/10 lg:hidden
+        group-data-open:[&>span:nth-child(1)]:translate-y-[4px] group-data-open:[&>span:nth-child(1)]:rotate-45
+        group-data-open:[&>span:nth-child(2)]:-translate-y-[4px] group-data-open:[&>span:nth-child(2)]:-rotate-45"
+    >
+      <span class="block h-0.5 w-5 rounded-full bg-fg transition-transform duration-300"></span>
+      <span class="block h-0.5 w-5 rounded-full bg-fg transition-transform duration-300"></span>
+    </button>
+  </div>
 </nav>

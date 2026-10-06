@@ -1,75 +1,140 @@
 ---
+import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
+import { languages, localizePath, stripLang, useTranslations, type Lang } from "../i18n";
+import { site as siteConfig } from "../config/site";
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  type?: "website" | "article";
+  noindex?: boolean;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
 const {
-  title = "Cristian Narváez (Diseñador UX)",
-  description = "Portafolio de Cristian Narváez — Diseñador UX. Proyectos, experiencia y contacto.",
+  title = t.meta.title,
+  description = t.meta.description,
   image = "/profilePhoto.webp",
-  canonical = undefined,
+  imageAlt = t.meta.imageAlt,
+  type = "website",
+  noindex = false,
 } = Astro.props;
 
-const siteOrigin = import.meta.env.SITE ? String(import.meta.env.SITE).replace(/\/$/, '') : 'https://uxcristian.site';
-const imageUrl = siteOrigin ? new URL(image, siteOrigin).toString() : image;
+const site = Astro.site ?? new URL(siteConfig.url);
+const pageUrl = new URL(Astro.url.pathname, site).toString();
+const imageUrl = new URL(image, site).toString();
 
-const pageUrl = canonical
-  ? (canonical.startsWith('http') ? canonical : siteOrigin ? new URL(canonical, siteOrigin).toString() : canonical)
-  : siteOrigin || undefined;
+// Misma página en cada idioma, para hreflang
+const basePath = stripLang(Astro.url.pathname);
+const alternates = (Object.keys(languages) as Lang[]).map((code) => ({
+  code,
+  href: new URL(localizePath(basePath, code), site).toString(),
+}));
 ---
 
 <!doctype html>
-<html lang="es" class="scroll-smooth">
+<html lang={lang} data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/webp" href="/meta_icon.webp" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#040823" />
+
+    <!-- Tema guardado (oscuro por defecto), aplicado antes de pintar para evitar parpadeos -->
+    <script is:inline>
+      (function () {
+        function apply() {
+          var theme = "dark";
+          try {
+            theme = localStorage.getItem("theme") || "dark";
+          } catch (e) {}
+          document.documentElement.dataset.theme = theme;
+        }
+        apply();
+        document.addEventListener("astro:after-swap", apply);
+      })();
+    </script>
 
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={pageUrl} />}
+    {!noindex && alternates.map(({ code, href }) => <link rel="alternate" hreflang={code} href={href} />)}
+    {!noindex && <link rel="alternate" hreflang="x-default" href={alternates[0].href} />}
 
-    {pageUrl ? <link rel="canonical" href={pageUrl} /> : null}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+    />
 
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Cristian Narváez" />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={siteConfig.name} />
+    <meta property="og:locale" content={t.meta.locale} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={imageUrl} />
-    <meta property="og:image:alt" content="Foto de perfil de Cristian Narváez" />
-    {pageUrl ? <meta property="og:url" content={pageUrl} /> : null}
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta property="og:url" content={pageUrl} />
 
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageUrl} />
-    <!-- Optionally add twitter:site and twitter:creator if provided in site config -->
 
-    <!-- JSON-LD (Person) -->
-    <script type="application/ld+json">
-      {JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Person",
-        name: "Cristian Narváez",
-        url: siteOrigin || undefined,
-        image: imageUrl || undefined,
-        jobTitle: "Diseñador UX",
-        description,
-        sameAs: [
-          "https://www.linkedin.com/in/cristian-narvaez/"
-        ]
-      })}
-    </script>
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: siteConfig.name,
+      url: site.toString(),
+      image: new URL("/profilePhoto.webp", site).toString(),
+      jobTitle: lang === "es" ? "Diseñador UX" : "UX Designer",
+      sameAs: [siteConfig.linkedin, siteConfig.behance, siteConfig.github],
+    })} />
 
-  <script src="/hotjar.js" async></script>
+    <ClientRouter />
+
+    <script src="/hotjar.js" async></script>
   </head>
-  <body class="bg-primary-100 font-sans">
+  <body class="min-h-dvh font-sans text-fg antialiased">
+    <div class="scene" aria-hidden="true" transition:persist="scene">
+      <div class="scene__orb scene__orb--1"></div>
+      <div class="scene__orb scene__orb--2"></div>
+      <div class="scene__orb scene__orb--3"></div>
+      <div class="scene__texture"></div>
+    </div>
+
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-full focus:bg-royal-600 focus:px-6 focus:py-3 focus:font-semibold focus:text-white"
+    >
+      {t.a11y.skip}
+    </a>
+
     <slot />
+
+    <button
+      id="back-to-top"
+      type="button"
+      aria-label={t.a11y.backToTop}
+      title={t.a11y.backToTop}
+      class="glass-strong fixed right-5 bottom-5 z-50 flex size-12 items-center justify-center rounded-full text-fg"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 19V6" />
+        <path d="M5 12l7-7 7 7" />
+      </svg>
+    </button>
+
+    <script>
+      import "../scripts/app.ts";
+    </script>
   </body>
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>

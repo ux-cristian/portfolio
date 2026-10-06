@@ -1,0 +1,43 @@
+---
+import Container from "../../templates/Container.astro";
+import { clients } from "../../config/site";
+import { useTranslations, type Lang } from "../../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section aria-labelledby="clients-title" class="py-10">
+  <Container>
+    <div data-reveal class="glass flex flex-col items-center gap-6 rounded-[2rem] px-6 py-7 md:flex-row md:justify-between md:px-10">
+      <h2 id="clients-title" class="text-center text-sm font-medium text-subtle md:max-w-52 md:text-left">{t.clients.title}</h2>
+      <ul class="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
+        {clients.map(({ name, url, logo, ratio }) => (
+          <li>
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block text-muted opacity-80 transition-all duration-300 hover:text-fg hover:opacity-100"
+            >
+              {logo ? (
+                <span
+                  role="img"
+                  aria-label={name}
+                  class="block h-8 bg-current md:h-9"
+                  style={`aspect-ratio: ${ratio}; mask: url(${logo}) center / contain no-repeat; -webkit-mask: url(${logo}) center / contain no-repeat;`}
+                />
+              ) : (
+                <span class="block text-2xl font-extrabold tracking-[0.2em] uppercase">{name}</span>
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Container>
+</section>

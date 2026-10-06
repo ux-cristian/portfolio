@@ -1,29 +1,57 @@
 ---
-import Container from "../../templates/Container.astro";
-
-import { Image } from "astro:assets";
-import profilePhoto from "../../assets/cristian_photo_without_bg.webp";
-
+import Section from "../../templates/Section.astro";
+import SectionHeading from "../molecules/SectionHeading.astro";
+import Experience from "../molecules/Experience.astro";
 import Button from "../atoms/Button.astro";
+import Tag from "../atoms/Tag.astro";
+import Icon from "../atoms/Icon.astro";
+import { experience } from "../../data/experience";
+import { site } from "../../config/site";
+import { useTranslations, type Lang } from "../../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
 ---
 
-<section id="about" class="flex w-full bg-gray-100 py-16 md:py-20 xl:py-28">
-  <Container>
-    <div class="grid grid-cols-1 gap-10 md:gap-12 xl:gap-20 xl:grid-cols-2">
-      <div class="bg-[url(../assets/vectors/wireframe_vector_2.svg)] bg-cover w-full min-w-80 h-64 md:h-80 xl:h-96 relative">
-        <Image src={profilePhoto} alt="Foto de Cristian Narvaez." class="size-72 md:size-96 xl:size-[448px] absolute bottom-0 left-1/2 -translate-x-1/2"/>
-        <div class="bg-primary-600 w-full h-2 absolute bottom-0 rounded-full"></div>
+<Section id="about">
+  <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+    <div class="flex flex-col gap-8">
+      <SectionHeading eyebrow={t.about.eyebrow}>{t.about.title}</SectionHeading>
+
+      <div data-reveal class="flex flex-col gap-4 text-lg leading-relaxed text-pretty text-muted">
+        {t.about.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
       </div>
-      <div class="flex min-w-80 flex-col gap-3 md:gap-3.5 xl:gap-4 justify-center text-gray-800 font-sans">
-        <span class="font-brand text-lg md:text-xl xl:text-2xl tracking-widest font-medium">SOBRE MI</span>
-        <h2 class="font-brand text-3xl md:text-4xl xl:text-5xl font-semibold">Diseñador UX en Colombia</h2>
-        <p class="text-base md:text-lg xl:text-xl">Me considero un eterno aprendiz, me gusta leer libros, escuchar podcast, ver videos y conversar con otras personas con genuina curiosidad. Un reflejo de ello, es que aprendí a tocar la guitarra de esa manera, y por supuesto, no es la excepción; a diseñar...</p>       
-        <!-- 
-        <div class="flex justify-end mt-4 md:mt-6 xl:mt-8">
-          <Button type="outline" href="https://ux-cristian.github.io/CV-Cristian.pdf" target="_blank">Saber más</Button>
-        </div>
-        -->
+
+      <div data-reveal class="flex flex-col gap-3">
+        <h3 class="text-sm font-semibold tracking-wide text-subtle uppercase">{t.about.skillsTitle}</h3>
+        <ul class="flex flex-wrap gap-2">
+          {t.about.skills.map((skill) => <li class="flex"><Tag>{skill}</Tag></li>)}
+        </ul>
       </div>
     </div>
-  </Container>
-</section>
+
+    <div data-reveal style="--reveal-delay: 120ms" class="glass flex h-fit flex-col gap-8 rounded-[2rem] p-7 md:p-9">
+      <h3 class="text-xl font-bold tracking-tight">{t.about.experienceTitle}</h3>
+      <ol>
+        {experience.map((job) => (
+          <Experience
+            title={job.title[lang]}
+            company={job.company}
+            url={job.url}
+            period={`${job.start[lang]} — ${job.end[lang]}`}
+            description={job.description[lang]}
+            newTabLabel={t.a11y.newTab}
+          />
+        ))}
+      </ol>
+      <Button href={site.cv} variant="glass" download>
+        <Icon name="download" class="size-4" />
+        {t.about.cv}
+      </Button>
+    </div>
+  </div>
+</Section>

@@ -1,17 +1,53 @@
 ---
-import Container from "../../templates/Container.astro";
+import Section from "../../templates/Section.astro";
 import Button from "../atoms/Button.astro";
-import OpenInNewIcon from '../../assets/icons/open_in_new.svg'
+import Icon from "../atoms/Icon.astro";
+import Tag from "../atoms/Tag.astro";
+import { site } from "../../config/site";
+import { useTranslations, type Lang } from "../../i18n";
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  lead?: string;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const { title = t.contact.title, lead = t.contact.lead } = Astro.props;
+const mailto = `mailto:${site.email}?subject=${encodeURIComponent(t.contact.emailSubject)}`;
 ---
 
-<section id="contact" class="bg-[url('../assets/vectors/wireframe_vector.svg')] bg-cover flex w-full bg-gray-50 py-16 md:py-20 xl:py-28">
-  <Container>
-    <div class="flex flex-col w-full items-center gap-7 md:gap-9 xl:gap-11">
-        <h2 class="text-2xl md:text-3xl xl:text-4xl md:max-w-[70%] font-brand font-semibold text-center text-gray-800">¿Tienes alguna pregunta, comentario o idea? Por favor, envíamela.</h2>
-        <div class="flex gap-4 md:gap-5 xl:gap-6">
-            <Button type="outline" href="mailto:cristian08nc@gmail.com" target="_blank">Correo <OpenInNewIcon class="size-[18px] md:size-5 xl:size-6 fill-primary-600"/></Button>
-            <Button type="outline" href="https://www.linkedin.com/in/ux-cristian/" target="_blank">Linkedin <OpenInNewIcon class="size-[18px] md:size-5 xl:size-6 fill-primary-600"/></Button>
-        </div>
+<Section id="contact">
+  <div data-reveal class="glass-strong relative overflow-hidden rounded-[2.5rem] px-6 py-16 text-center md:px-16 md:py-24">
+    <div class="pointer-events-none absolute -top-40 left-1/2 size-[36rem] -translate-x-1/2 rounded-full bg-royal-500/30 blur-3xl" aria-hidden="true"></div>
+
+    <div class="relative mx-auto flex max-w-2xl flex-col items-center gap-6">
+      <Tag variant="accent">{t.contact.eyebrow}</Tag>
+      <h2 class="text-3xl font-bold tracking-tight text-balance md:text-5xl md:leading-[1.08]">{title}</h2>
+      <p class="text-lg text-pretty text-muted md:text-xl">{lead}</p>
+
+      <div class="mt-2 flex flex-wrap justify-center gap-3">
+        {site.bookingUrl && (
+          <Button href={site.bookingUrl} target="_blank" size="lg">
+            <Icon name="calendar" class="size-4" />
+            {t.contact.book}
+          </Button>
+        )}
+        <Button href={mailto} size="lg" variant={site.bookingUrl ? "glass" : "primary"}>
+          <Icon name="mail" class="size-4" />
+          {t.contact.email}
+        </Button>
+        <Button href={site.linkedin} target="_blank" size="lg" variant="glass">
+          LinkedIn
+          <Icon name="arrow-up-right" class="size-4" />
+          <span class="sr-only">{t.a11y.newTab}</span>
+        </Button>
+      </div>
+
+      <p class="text-sm text-subtle">
+        {t.contact.or} <a href={mailto} class="font-medium text-accent hover:underline">{site.email}</a>
+      </p>
     </div>
-  </Container>
-</section>
+  </div>
+</Section>

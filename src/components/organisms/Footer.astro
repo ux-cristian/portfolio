@@ -1,25 +1,39 @@
 ---
 import Container from "../../templates/Container.astro";
 import IconButton from "../atoms/IconButton.astro";
-
+import Logo from "../atoms/Logo.astro";
 import BehanceIcon from "../../assets/behance.svg";
 import LinkedinIcon from "../../assets/linkedin.svg";
 import EmailIcon from "../../assets/email.svg";
-import LogoIcon from "../../assets/logo_footer.svg";
+import { site } from "../../config/site";
+import { localizePath, useTranslations, type Lang } from "../../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const home = localizePath("/", lang);
+const iconClass = "size-5 fill-current";
 ---
 
-<section class="flex w-full bg-primary-600 py-16 md:py-20 xl:py-28">
-  <Container>
-    <div class="flex w-full flex-col gap-3 xl:gap-6">
-      <a href="/">
-        <LogoIcon class="h-12 xl:h-16 fill-primary-50 mx-auto my-4"/>
+<footer class="border-t border-line py-12">
+  <Container class="flex flex-col items-center gap-8 md:flex-row md:justify-between">
+    <div class="flex flex-col items-center gap-3 md:items-start">
+      <a href={home} aria-label={t.a11y.home} class="text-fg">
+        <Logo />
       </a>
-      <div class="flex w-full justify-center gap-4">
-        <IconButton href="https://www.behance.net/cristianarvez" target="_blank"><BehanceIcon class="fill-primary-50 md:w-7 md:h-7 xl:w-9 xl:h-9"/></IconButton>
-        <IconButton href="https://www.linkedin.com/in/ux-cristian/" target="_blank"><LinkedinIcon class="fill-primary-50 md:w-7 md:h-7 xl:w-9 xl:h-9"//></IconButton>
-        <IconButton href="mailto:cristian08nc@gmail.com"><EmailIcon class="fill-primary-50 md:w-7 md:h-7 xl:w-9 xl:h-9"//></IconButton>
-      </div>
-      <span class="font-medium md:text-base xl:text-lg text-primary-50 text-center mt-4 md:mt-6 xl:mt-8 text-sm">2025 Cristian Narváez - Hecho con cariño.</span>
+      <p class="text-sm text-subtle">{t.footer.tagline}</p>
+    </div>
+
+    <div class="flex gap-3">
+      <IconButton href={site.linkedin} target="_blank" label="LinkedIn"><LinkedinIcon class={iconClass} aria-hidden="true" /></IconButton>
+      <IconButton href={site.behance} target="_blank" label="Behance"><BehanceIcon class={iconClass} aria-hidden="true" /></IconButton>
+      <IconButton href={`mailto:${site.email}`} label={site.email}><EmailIcon class={iconClass} aria-hidden="true" /></IconButton>
     </div>
   </Container>
-</section>
+  <Container>
+    <p class="mt-8 text-center text-xs text-subtle md:text-left">© {new Date().getFullYear()} Cristian Narváez</p>
+  </Container>
+</footer>
