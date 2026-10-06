@@ -1,15 +1,33 @@
 ---
 import Section from "../../templates/Section.astro";
 import Avatar from "../atoms/Avatar.astro";
+import Button from "../atoms/Button.astro";
+import Skills from "../molecules/Skills.astro";
 import AvatarURL from "../../assets/cristian_photo.jpg";
+import ArrowDownIcon from "../../assets/icons/arrow_right_alt.svg";
 ---
 
 <Section id="hero" class="bg-[url('../assets/vectors/level_curves.svg'),linear-gradient(to_top,theme(colors.primary.200),theme(colors.primary.100))] bg-cover">
-  <div class="flex flex-col w-full gap-4 md:gap-5 xl:gap-6 items-center text-gray-800">
+  <div class="flex flex-col w-full gap-6 md:gap-8 xl:gap-10 text-gray-800">
     <div class="flex flex-col w-full gap-6 md:flex-row md:items-center md:gap-7 xl:gap-8">
       <Avatar src={AvatarURL} alt="Foto de Cristian Narváez"/>
-      <h1 class="font-brand font-semibold leading-11 text-4xl md:text-6xl xl:text-7xl">Cristian Narváez</h1>
+      <div class="flex flex-col gap-2">
+        <h1 class="font-brand font-semibold leading-11 md:leading-tight text-4xl md:text-6xl xl:text-7xl">Cristian Narváez</h1>
+        <p class="font-brand font-medium text-lg md:text-xl xl:text-2xl text-primary-700">Diseñador UX · Ingeniero de Sistemas</p>
+      </div>
     </div>
-    <p class="text-xl md:text-2xl xl:text-3xl">Ingeniero de Sistemas con <strong>+2 años</strong> de experiencia como <strong class="font-bold">Diseñador UX</strong>. Combino mi formación técnica con la pasión por crear experiencias centradas en el usuario y el negocio.</p>
+
+    <p class="text-xl md:text-2xl xl:text-3xl max-w-[48ch]">Ingeniero de Sistemas con <strong>+2 años</strong> de experiencia como <strong class="font-bold">Diseñador UX</strong>. Combino mi formación técnica con la pasión por crear experiencias centradas en el usuario y el negocio.</p>
+
+    <div class="flex flex-wrap gap-3 md:gap-4">
+      <Button href="#projects">
+        Ver proyectos <ArrowDownIcon class="size-5 md:size-6 xl:size-7 fill-primary-50 rotate-90" aria-hidden="true"/>
+      </Button>
+      <Button href="/cv_cristian_narvaez.pdf" type="outline" download>
+        Descargar CV
+      </Button>
+    </div>
+
+    <Skills />
   </div>
 </Section>

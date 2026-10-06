@@ -37,6 +37,16 @@ const projects = defineCollection({
           description: z.string(),
         }),
       ),
+      // Opcional. Si existe, se muestra la sección "Resultados" y el primer
+      // resultado con métrica se destaca en la tarjeta del proyecto.
+      results: z
+        .array(
+          z.object({
+            metric: z.string().optional(), // p. ej. "−40%", "3×", "+120"
+            description: z.string(),
+          }),
+        )
+        .optional(),
       learnings: z.array(z.string()),
     });
   },

@@ -6,15 +6,16 @@
     --font-sans: "Open Sans", sans-serif;
     --font-brand: "Work Sans";
 
-    --text-xs--line-height: 24px;
-    --text-sm--line-height: 28px;
-    --text-base--line-height: 36px;
-    --text-lg--line-height: 40px;
-    --text-xl--line-height: 40px;
-    --text-2xl--line-height: 48px;
-    --text-3xl--line-height: 52px;
-    --text-4xl--line-height: 56px;
-    --text-5xl--line-height: 60px;
+    /* ~1.6 en texto de lectura, más compacto en titulares */
+    --text-xs--line-height: 20px;
+    --text-sm--line-height: 22px;
+    --text-base--line-height: 26px;
+    --text-lg--line-height: 30px;
+    --text-xl--line-height: 32px;
+    --text-2xl--line-height: 36px;
+    --text-3xl--line-height: 42px;
+    --text-4xl--line-height: 46px;
+    --text-5xl--line-height: 56px;
     --text-6xl--line-height: 68px;
     --text-7xl--line-height: 72px;
     --text-8xl--line-height: 80px;
@@ -91,27 +92,11 @@
 
 /* Contenido en Markdown de los casos de estudio */
 @layer components {
-    .rich-text > * + * {
-        margin-top: 1lh;
+    /* ~70 caracteres por línea en textos largos */
+    .rich-text {
+        max-width: 70ch;
     }
 
-    .rich-text > p + ul {
-        margin-top: 0.5lh;
-    }
-
-    .rich-text ul {
-        list-style: disc;
-        padding-left: 1.5rem;
-    }
-
-    .rich-text a {
-        color: var(--color-primary-700);
-        text-decoration: underline;
-    }
-}
-
-/* Contenido en Markdown de los casos de estudio */
-@layer components {
     .rich-text > * + * {
         margin-top: 1lh;
     }

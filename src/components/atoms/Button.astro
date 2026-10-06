@@ -3,9 +3,10 @@ interface Props {
   type?: 'solid' | 'outline';
   href?: string;
   target?: '_blank' | '_self';
+  download?: boolean;
 }
 
-const { type = 'solid', href, target = '_self' } = Astro.props;
+const { type = 'solid', href, target = '_self', download = false } = Astro.props;
 
 const variants = {
   solid: "bg-primary-600 text-primary-50 hover:bg-primary-700 focus:bg-primary-700",
@@ -19,6 +20,7 @@ const Element = href ? 'a' : 'button';
   href={href}
   target={href ? target : undefined}
   rel={href && target === '_blank' ? 'noopener noreferrer' : undefined}
+  download={href && download ? "" : undefined}
   type={!href ? "button" : undefined}
   class={`font-brand font-semibold text-base md:text-lg xl:text-xl py-3 px-6 md:py-3.5 md:px-7 xl:py-4 xl:px-8 w-fit inline-flex items-center gap-2 rounded-full cursor-pointer border ${type === 'outline' ? 'border-current' : 'border-transparent'} ${variants[type]} disabled:opacity-50`}
 >

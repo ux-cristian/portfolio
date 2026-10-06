@@ -1,5 +1,4 @@
 ---
-import Container from "../../templates/Container.astro";
 import Tag from '../atoms/Tag.astro';
 
 const skills = [
@@ -15,10 +14,6 @@ const skills = [
 ];
 ---
 
-<section aria-label="Habilidades" class="bg-primary-200 pb-16 md:pb-24 xl:pb-28">
-    <Container>
-        <ul class="flex flex-wrap gap-x-2 gap-y-3 md:gap-x-3 md:gap-y-4 xl:gap-x-4 xl:gap-y-6">
-            {skills.map((skill) => <li class="flex"><Tag>{skill}</Tag></li>)}
-        </ul>
-    </Container>
-</section>
+<ul aria-label="Habilidades" class="flex flex-wrap gap-2 md:gap-3">
+    {skills.map((skill) => <li class="flex"><Tag size="xs">{skill}</Tag></li>)}
+</ul>

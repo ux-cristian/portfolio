@@ -69,7 +69,15 @@ Cada caso de estudio vive en `src/content/projects/<id>/index.md`; el nombre de 
 3. Multimedia de cada paso del proceso (`media`):
 	- `type: image` — la imagen va dentro de la carpeta del proyecto (`src: ./imagen.webp`). Astro la optimiza y genera tamaños para móvil.
 	- `type: gif` o `type: video` — el archivo va en `public/projects/<id>/` (`src: /projects/<id>/archivo.gif`).
-4. Verifica en desarrollo con `npm run dev`. Si falta un campo o una imagen no existe, la build lo indica con un error.
+4. Resultados (opcional): añade `results` con una lista de `metric` (p. ej. `"−40%"`) y `description`. Aparece la sección "Resultados" en el caso de estudio y el primer resultado con métrica se destaca en la tarjeta de la home:
+
+	```yaml
+	results:
+	  - metric: "−40%"
+	    description: Tiempo de configuración de una nueva marca.
+	```
+
+5. Verifica en desarrollo con `npm run dev`. Si falta un campo o una imagen no existe, la build lo indica con un error.
 
 ## Despliegue
 

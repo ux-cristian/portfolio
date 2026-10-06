@@ -20,6 +20,7 @@ import CalendarMonth from "../../assets/icons/calendar_month.svg";
 import CorporateFare from "../../assets/icons/corporate_fare.svg";
 import ProcessIcon from "../../assets/icons/draw.svg";
 import LearningIcon from "../../assets/icons/neurology.svg";
+import ResultsIcon from "../../assets/icons/trending_up.svg";
 import ProjectIcon from "../../assets/palette.svg";
 
 import { getProjects } from "../../lib/projects";
@@ -119,6 +120,24 @@ const metaIconClass = "size-6 md:size-7 xl:size-8 fill-gray-800 mt-1 xl:mt-0.5 s
         </div>
       </div>
     </Section>
+
+    {data.results && data.results.length > 0 && (
+      <Section class="bg-gradient-to-t from-primary-200 to-primary-100">
+        <div class="flex flex-col gap-10 md:gap-14 xl:gap-16 text-gray-800">
+          <SectionHeading icon={ResultsIcon}>Resultados</SectionHeading>
+          <ul class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 xl:gap-8">
+            {data.results.map((result) => (
+              <li class="flex flex-col gap-2 md:gap-3 rounded-2xl md:rounded-3xl bg-gray-50 p-6 md:p-8 border-4 border-primary-200">
+                {result.metric && (
+                  <span class="font-brand font-semibold text-4xl md:text-5xl text-primary-600">{result.metric}</span>
+                )}
+                <RichText content={result.description} class={textClass} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Section>
+    )}
 
     <Section class="bg-gray-50">
       <div class="flex flex-col gap-10 md:gap-16 xl:gap-20 text-gray-800">
