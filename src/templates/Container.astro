@@ -1,3 +1,11 @@
-<div class="container flex m-auto px-5 md:px-10 xl:mx-auto">
-    <slot />
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={["mx-auto w-full max-w-6xl px-5 md:px-8", className]}>
+  <slot />
 </div>

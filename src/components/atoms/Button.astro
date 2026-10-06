@@ -1,28 +1,44 @@
 ---
+
 interface Props {
-  type?: 'solid' | 'outline';
+  variant?: "primary" | "glass" | "ghost";
+  size?: "md" | "lg";
   href?: string;
-  target?: '_blank' | '_self';
+  target?: "_blank" | "_self";
   download?: boolean;
+  class?: string;
 }
 
-const { type = 'solid', href, target = '_self', download = false } = Astro.props;
+const { variant = "primary", size = "md", href, target, download = false, class: className } = Astro.props;
 
 const variants = {
-  solid: "bg-primary-600 text-primary-50 hover:bg-primary-700 focus:bg-primary-700",
-  outline: "border-primary-600 border-2 text-primary-600 hover:bg-primary-50 focus:bg-primary-50"
+  primary:
+    "bg-gradient-to-b from-royal-500 to-royal-700 text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.35),0_10px_30px_-10px_rgb(39_65_234/0.8)] hover:shadow-[inset_0_1px_0_rgb(255_255_255/0.35),0_16px_40px_-10px_rgb(39_65_234/0.9)]",
+  glass: "glass text-fg hover:bg-white/10",
+  ghost: "text-accent hover:text-accent-strong px-0!",
 };
 
-const Element = href ? 'a' : 'button';
+const sizes = {
+  md: "h-11 px-5 text-sm",
+  lg: "h-13 px-7 text-base",
+};
+
+const Element = href ? "a" : "button";
 ---
 
 <Element
   href={href}
   target={href ? target : undefined}
-  rel={href && target === '_blank' ? 'noopener noreferrer' : undefined}
+  rel={href && target === "_blank" ? "noopener noreferrer" : undefined}
   download={href && download ? "" : undefined}
   type={!href ? "button" : undefined}
-  class={`font-brand font-semibold text-base md:text-lg xl:text-xl py-3 px-6 md:py-3.5 md:px-7 xl:py-4 xl:px-8 w-fit inline-flex items-center gap-2 rounded-full cursor-pointer border ${type === 'outline' ? 'border-current' : 'border-transparent'} ${variants[type]} disabled:opacity-50`}
+  class:list={[
+    "group/btn inline-flex w-fit shrink-0 items-center justify-center gap-2 rounded-full font-semibold whitespace-nowrap",
+    "transition-all duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-0.5 active:translate-y-0",
+    variants[variant],
+    sizes[size],
+    className,
+  ]}
 >
-  <slot/>
+  <slot />
 </Element>

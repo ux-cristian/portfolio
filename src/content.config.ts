@@ -1,13 +1,14 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 
-// Cada caso de estudio vive en src/content/projects/<id>/index.md junto a sus imágenes.
+// Cada caso de estudio vive en src/content/projects/<id>/ con un archivo por idioma
+// (es.md, en.md) y sus imágenes. El id de cada entrada es "<id>/<idioma>".
 // Los campos de texto aceptan Markdown (negritas, enlaces, listas).
 const projects = defineCollection({
   loader: glob({
-    pattern: "*/index.md",
+    pattern: "*/{es,en}.md",
     base: "./src/content/projects",
-    generateId: ({ entry }) => entry.split("/")[0],
+    generateId: ({ entry }) => entry.replace(/\.md$/, ""),
   }),
   schema: ({ image }) => {
     // Imágenes estáticas: archivo relativo (./foto.webp), optimizado por Astro.

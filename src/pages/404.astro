@@ -1,22 +1,28 @@
 ---
+// GitHub Pages sirve esta página para cualquier ruta que no exista, en ambos idiomas.
 import Layout from "../templates/Layout.astro";
 import Section from "../templates/Section.astro";
 import Header from "../components/organisms/Header.astro";
 import Footer from "../components/organisms/Footer.astro";
 import Button from "../components/atoms/Button.astro";
+import { useTranslations } from "../i18n";
+
+const es = useTranslations("es");
+const en = useTranslations("en");
 ---
 
-<Layout title="Página no encontrada — Cristian Narváez (Diseñador UX)" noindex>
-  <Header navbarBehavior="redirectionType" />
+<Layout lang="es" title={`404 — ${es.notFound.title}`} noindex>
+  <Header lang="es" />
   <main id="main">
-    <Section class="bg-[url('../assets/vectors/level_curves.svg'),linear-gradient(to_top,theme(colors.primary.200),theme(colors.primary.100))] bg-cover min-h-[60vh] items-center">
-      <div class="flex flex-col w-full items-center gap-6 md:gap-8 text-center text-gray-800">
-        <span class="font-brand font-semibold text-6xl md:text-8xl text-primary-600">404</span>
-        <h1 class="font-brand font-semibold text-3xl md:text-4xl xl:text-5xl">Esta página no existe</h1>
-        <p class="text-base md:text-lg xl:text-xl">Puede que el enlace esté roto o que la página se haya movido.</p>
-        <Button href="/">Volver al inicio</Button>
+    <Section class="flex min-h-[70vh] items-center">
+      <div class="glass-strong mx-auto flex max-w-2xl flex-col items-center gap-6 rounded-[2.5rem] px-8 py-16 text-center">
+        <span class="text-gradient text-7xl font-extrabold tracking-tight md:text-8xl">404</span>
+        <h1 class="text-3xl font-bold tracking-tight md:text-4xl">{es.notFound.title}</h1>
+        <p class="text-muted">{es.notFound.text}</p>
+        <p class="text-sm text-subtle" lang="en">{en.notFound.title}. {en.notFound.text}</p>
+        <Button href="/" size="lg">{es.notFound.back}</Button>
       </div>
     </Section>
   </main>
-  <Footer />
+  <Footer lang="es" />
 </Layout>

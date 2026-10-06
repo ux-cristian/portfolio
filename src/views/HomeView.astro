@@ -1,0 +1,35 @@
+---
+import Layout from "../templates/Layout.astro";
+import Header from "../components/organisms/Header.astro";
+import Hero from "../components/organisms/Hero.astro";
+import Clients from "../components/organisms/Clients.astro";
+import Services from "../components/organisms/Services.astro";
+import Projects from "../components/organisms/Projects.astro";
+import Process from "../components/organisms/Process.astro";
+import About from "../components/organisms/About.astro";
+import Faq from "../components/organisms/Faq.astro";
+import Contact from "../components/organisms/Contact.astro";
+import Footer from "../components/organisms/Footer.astro";
+import type { Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<Layout lang={lang}>
+  <Header lang={lang} />
+  <main id="main">
+    <Hero lang={lang} />
+    <Clients lang={lang} />
+    <Services lang={lang} />
+    <Projects lang={lang} />
+    <Process lang={lang} />
+    <About lang={lang} />
+    <Faq lang={lang} />
+    <Contact lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</Layout>

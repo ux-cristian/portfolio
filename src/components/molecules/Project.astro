@@ -1,60 +1,70 @@
 ---
 import { Image } from "astro:assets";
-import type { CollectionEntry } from "astro:content";
-import Tag from '../atoms/Tag.astro';
-import RichText from '../atoms/RichText.astro';
-import ArrowRightIcon from '../../assets/icons/arrow_right_alt.svg';
+import Tag from "../atoms/Tag.astro";
+import Icon from "../atoms/Icon.astro";
+import RichText from "../atoms/RichText.astro";
+import { localizePath, useTranslations, type Lang } from "../../i18n";
+import type { Project } from "../../lib/projects";
 
 interface Props {
-  project: CollectionEntry<"projects">;
+  project: Project;
+  lang: Lang;
+  featured?: boolean;
 }
 
-const { project } = Astro.props;
-const { title, category, description, cover, results } = project.data;
+const { project, lang, featured = false } = Astro.props;
+const t = useTranslations(lang);
+const { title, category, description, cover, client, results } = project.data;
 const highlight = results?.find((result) => result.metric);
-const href = `/project/${project.id}/`;
+const href = localizePath(`/project/${project.slug}/`, lang);
 ---
 
 <!-- Toda la tarjeta es clicable gracias al ::after del enlace del título -->
 <article
-  class="group relative flex flex-wrap rounded-2xl md:rounded-4xl bg-gray-50 hover:shadow-xl transition-shadow duration-300 has-[a:focus-visible]:outline-4 has-[a:focus-visible]:outline-offset-4 has-[a:focus-visible]:outline-primary-600"
+  data-reveal
+  class:list={[
+    "group glass relative rounded-[2rem] p-2 transition-all duration-500 ease-[var(--ease-out-expo)]",
+    "hover:-translate-y-1 hover:shadow-[0_30px_80px_-30px_rgb(39_65_234/0.55)]",
+    "has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-4 has-[a:focus-visible]:outline-accent",
+  ]}
 >
-  <div class="relative flex-1 basis-1/2 min-w-[min(20rem,100%)] overflow-hidden">
-    <Image
-      src={cover}
-      alt={`Portada del proyecto ${title}`}
-      widths={[640, 960, 1280, 1920]}
-      sizes="(min-width: 1280px) 640px, (min-width: 768px) 50vw, 100vw"
-      class="w-full min-h-60 md:min-h-80 xl:min-h-96 h-full border-[4px] md:border-[5px] xl:border-[6px] border-primary-200 rounded-2xl md:rounded-4xl object-cover"
-    />
-    <div class="absolute inset-0 bg-primary-950/16 rounded-2xl md:rounded-4xl"></div>
-  </div>
-  <div
-    class="flex-1 basis-1/2 min-w-[min(20rem,100%)] flex flex-col justify-between p-4 gap-4 md:pt-9 md:pb-6 md:px-8 md:gap-5 xl:px-10 xl:pt-8"
-  >
-    <div class="flex flex-col gap-1 md:gap-2 xl:gap-4">
-      <h3 class="font-brand text-xl md:text-2xl xl:text-3xl font-semibold text-gray-800">
-        <a href={href} class="after:absolute after:inset-0 after:rounded-2xl md:after:rounded-4xl focus-visible:outline-none">
+  <div class:list={["grid h-full", featured && "lg:grid-cols-[1.3fr_1fr]"]}>
+    <div
+      class:list={["relative overflow-hidden rounded-[1.6rem] bg-royal-950/50", featured ? "aspect-[16/10] lg:aspect-auto lg:min-h-[26rem]" : "aspect-[16/10]"]}
+      transition:name={`cover-${project.slug}`}
+    >
+      <Image
+        src={cover}
+        alt={`${t.projects.coverAlt} ${title}`}
+        widths={[640, 960, 1280, 1920]}
+        sizes={featured ? "(min-width: 1024px) 640px, 100vw" : "(min-width: 768px) 560px, 100vw"}
+        class="absolute inset-0 size-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.04]"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-royal-950/40 to-transparent"></div>
+    </div>
+
+    <div class="flex flex-col gap-4 p-5 md:p-7">
+      <div class="flex flex-wrap items-center gap-2">
+        <Tag variant="accent">{category}</Tag>
+        <span class="text-xs font-medium text-subtle">{client}</span>
+      </div>
+      <h3 class="text-2xl font-bold tracking-tight text-balance md:text-3xl">
+        <a href={href} class="after:absolute after:inset-0 after:rounded-[2rem] focus-visible:outline-none">
           {title}
         </a>
       </h3>
-      <p class="text-base md:text-lg xl:text-xl text-gray-800 line-clamp-4">
-        {description}
-      </p>
+      <p class="text-pretty text-muted">{description}</p>
+
       {highlight && (
-        <div class="flex items-center gap-3 md:gap-4 mt-2 rounded-xl md:rounded-2xl bg-primary-100 px-4 py-3">
-          <span class="font-brand font-semibold text-2xl md:text-3xl text-primary-600 shrink-0">{highlight.metric}</span>
-          <RichText content={highlight.description} class="text-sm md:text-base text-gray-800 line-clamp-2" />
+        <div class="flex items-center gap-4 rounded-2xl border border-line bg-royal-500/10 px-4 py-3">
+          <span class="shrink-0 text-2xl font-bold tracking-tight text-accent">{highlight.metric}</span>
+          <RichText content={highlight.description} class="line-clamp-2 text-sm leading-snug! text-muted" />
         </div>
       )}
-    </div>
-    <div class="flex flex-wrap gap-4 justify-between items-center mt-3">
-      <Tag size="xs">
-        {category}
-      </Tag>
-      <span aria-hidden="true" class="flex items-center gap-1.5 md:gap-2 ml-auto font-brand font-bold text-primary-600 md:text-lg xl:text-xl">
-        Ver proyecto
-        <ArrowRightIcon class="hidden group-hover:block group-has-[a:focus-visible]:block size-5 md:size-6 xl:size-7 fill-primary-600"/>
+
+      <span aria-hidden="true" class="mt-auto inline-flex items-center gap-2 pt-2 text-sm font-semibold text-accent">
+        {t.projects.view}
+        <Icon name="arrow-right" class="size-4 transition-transform duration-300 group-hover:translate-x-1" />
       </span>
     </div>
   </div>

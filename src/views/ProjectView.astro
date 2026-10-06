@@ -1,0 +1,177 @@
+---
+import { Image, getImage } from "astro:assets";
+
+import Layout from "../templates/Layout.astro";
+import Section from "../templates/Section.astro";
+import Header from "../components/organisms/Header.astro";
+import Contact from "../components/organisms/Contact.astro";
+import Footer from "../components/organisms/Footer.astro";
+import Project from "../components/molecules/Project.astro";
+import ProcessStep from "../components/molecules/ProcessStep.astro";
+import SectionHeading from "../components/molecules/SectionHeading.astro";
+import MediaFrame from "../components/molecules/MediaFrame.astro";
+import RichText from "../components/atoms/RichText.astro";
+import ReadingProgress from "../components/atoms/ReadingProgress.astro";
+import Tag from "../components/atoms/Tag.astro";
+import Icon, { type IconName } from "../components/atoms/Icon.astro";
+
+import type { Project as ProjectEntry } from "../lib/projects";
+import { localizePath, useTranslations, type Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+  project: ProjectEntry;
+  otherProjects: ProjectEntry[];
+}
+
+const { lang, project, otherProjects } = Astro.props;
+const t = useTranslations(lang);
+const { data } = project;
+
+const ogImage = await getImage({ src: data.cover, width: 1200, format: "jpg" });
+
+const meta: { icon: IconName; label: string; value: string }[] = [
+  { icon: "client", label: t.project.client, value: data.client },
+  { icon: "calendar", label: t.project.date, value: data.date },
+  { icon: "system", label: t.project.category, value: data.category },
+];
+
+const summary = [
+  { title: t.project.challenge, content: data.challenge },
+  { title: t.project.role, content: data.role },
+  { title: t.project.solution, content: data.solution },
+];
+---
+
+<Layout
+  lang={lang}
+  title={`${data.title} — Cristian Narváez`}
+  description={data.description}
+  image={ogImage.src}
+  imageAlt={`${t.projects.coverAlt} ${data.title}`}
+  type="article"
+>
+  <ReadingProgress />
+  <Header lang={lang} />
+
+  <main id="main">
+    <!-- Cabecera del caso -->
+    <Section spacing="compact" class="pt-10 md:pt-16">
+      <div class="flex flex-col gap-10">
+        <div data-animate class="flex max-w-4xl flex-col items-start gap-6">
+          <a
+            href={`${localizePath("/", lang)}#projects`}
+            class="inline-flex items-center gap-2 text-sm font-semibold text-muted transition-colors hover:text-fg"
+          >
+            <Icon name="arrow-left" class="size-4" />
+            {t.project.back}
+          </a>
+          <Tag variant="accent">{data.category}</Tag>
+          <h1 class="text-4xl font-extrabold tracking-tight text-balance md:text-6xl md:leading-[1.04]">
+            <span class="text-gradient">{data.title}</span>
+          </h1>
+          <p class="max-w-3xl text-lg text-pretty text-muted md:text-xl">{data.description}</p>
+        </div>
+
+        <dl class="grid gap-3 sm:grid-cols-3">
+          {meta.map(({ icon, label, value }) => (
+            <div class="glass flex items-center gap-4 rounded-2xl px-5 py-4">
+              <span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-royal-500/15 text-accent">
+                <Icon name={icon} class="size-5" />
+              </span>
+              <div class="flex flex-col">
+                <dt class="text-xs font-semibold tracking-wide text-subtle uppercase">{label}</dt>
+                <dd class="font-semibold">{value}</dd>
+              </div>
+            </div>
+          ))}
+        </dl>
+
+        <div transition:name={`cover-${project.slug}`}>
+          <MediaFrame innerClass="aspect-[16/9] md:aspect-[21/9]">
+            <Image
+              src={data.cover}
+              alt={`${t.projects.coverAlt} ${data.title}`}
+              widths={[800, 1600, 2400]}
+              sizes="(min-width: 1152px) 1100px, 100vw"
+              loading="eager"
+              fetchpriority="high"
+              class="size-full object-cover"
+            />
+          </MediaFrame>
+        </div>
+      </div>
+    </Section>
+
+    <!-- Contexto, reto, rol y solución -->
+    <Section spacing="compact">
+      <div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+        <SectionHeading class="lg:sticky lg:top-28 lg:h-fit">{t.project.context}</SectionHeading>
+        <div class="flex flex-col gap-5">
+          <div data-reveal><RichText content={data.context} class="text-lg text-muted" /></div>
+          {summary.map(({ title, content }, i) => (
+            <article data-reveal style={`--reveal-delay: ${i * 80}ms`} class="glass flex flex-col gap-3 rounded-[1.75rem] p-6 md:p-8">
+              <h3 class="text-sm font-bold tracking-wide text-accent uppercase">{title}</h3>
+              <RichText content={content} class="text-muted md:text-lg" />
+            </article>
+          ))}
+        </div>
+      </div>
+    </Section>
+
+    {data.results && data.results.length > 0 && (
+      <Section>
+        <div class="flex flex-col gap-12">
+          <SectionHeading>{t.project.results}</SectionHeading>
+          <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {data.results.map((result, i) => (
+              <li data-reveal style={`--reveal-delay: ${i * 80}ms`} class="glass-strong flex flex-col gap-3 rounded-[1.75rem] p-6">
+                {result.metric && <span class="text-3xl font-extrabold tracking-tight text-accent md:text-4xl">{result.metric}</span>}
+                <RichText content={result.description} class="text-sm leading-relaxed! text-muted" />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Section>
+    )}
+
+    <Section>
+      <div class="flex flex-col gap-12 md:gap-16">
+        <SectionHeading>{t.project.process}</SectionHeading>
+        <div class="flex flex-col gap-16 md:gap-24">
+          {data.process.length === 0 && <p class="text-muted">{t.project.empty}</p>}
+          {data.process.map((step, index) => <ProcessStep step={step} index={index} />)}
+        </div>
+      </div>
+    </Section>
+
+    <Section>
+      <div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+        <SectionHeading class="lg:sticky lg:top-28 lg:h-fit">{t.project.learnings}</SectionHeading>
+        <ol class="flex flex-col gap-3">
+          {data.learnings.map((learning, index) => (
+            <li data-reveal class="glass flex gap-5 rounded-[1.5rem] p-5 md:p-6">
+              <span class="font-mono text-sm text-accent" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+              <RichText content={learning} class="text-muted md:text-lg" />
+            </li>
+          ))}
+        </ol>
+      </div>
+    </Section>
+
+    <Contact lang={lang} title={t.project.ctaTitle} lead={t.project.ctaLead} />
+
+    {otherProjects.length > 0 && (
+      <Section>
+        <div class="flex flex-col gap-12">
+          <SectionHeading>{t.project.others}</SectionHeading>
+          <div class="grid gap-6 md:grid-cols-2">
+            {otherProjects.map((other) => <Project project={other} lang={lang} />)}
+          </div>
+        </div>
+      </Section>
+    )}
+  </main>
+
+  <Footer lang={lang} />
+</Layout>

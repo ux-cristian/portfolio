@@ -1,0 +1,41 @@
+---
+import Section from "../../templates/Section.astro";
+import SectionHeading from "../molecules/SectionHeading.astro";
+import Icon, { type IconName } from "../atoms/Icon.astro";
+import { useTranslations, type Lang } from "../../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Section id="services">
+  <div class="flex flex-col gap-12 md:gap-16">
+    <SectionHeading eyebrow={t.services.eyebrow} lead={t.services.lead}>{t.services.title}</SectionHeading>
+
+    <ul class="grid gap-5 md:grid-cols-2">
+      {t.services.items.map((service, i) => (
+        <li
+          data-reveal
+          style={`--reveal-delay: ${(i % 2) * 100}ms`}
+          class="group glass relative flex flex-col gap-5 overflow-hidden rounded-[2rem] p-7 transition-transform duration-500 hover:-translate-y-1 md:p-9"
+        >
+          <div class="pointer-events-none absolute -top-24 -right-24 size-56 rounded-full bg-royal-500/25 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100" aria-hidden="true"></div>
+          <span class="flex size-12 items-center justify-center rounded-2xl bg-gradient-to-b from-royal-500 to-royal-700 text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.35)]">
+            <Icon name={service.icon as IconName} class="size-6" />
+          </span>
+          <h3 class="text-xl font-bold tracking-tight md:text-2xl">{service.title}</h3>
+          <p class="text-pretty text-muted">{service.description}</p>
+          <ul class="mt-auto flex flex-wrap gap-2 pt-2">
+            {service.deliverables.map((item) => (
+              <li class="rounded-full border border-line px-3 py-1 text-xs font-medium text-subtle">{item}</li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Section>

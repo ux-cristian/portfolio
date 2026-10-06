@@ -46,38 +46,41 @@ Los scripts definidos en `package.json` son:
 
 ## Estructura principal del proyecto
 
-Algunos archivos y carpetas relevantes:
+- `src/config/site.ts` — Correo, redes, CV, enlace de agenda (`bookingUrl`) y logos de clientes.
+- `src/i18n/` — Textos de la interfaz: `es.ts` (español) y `en.ts` (inglés), con la misma estructura.
+- `src/content/projects/<id>/` — Un caso de estudio por carpeta: `es.md`, `en.md` y sus imágenes.
+- `src/data/experience.ts` — Experiencia laboral en ambos idiomas.
+- `src/views/` — Las páginas completas (`HomeView`, `ProjectView`); `src/pages/` solo define las rutas de cada idioma.
+- `src/components/` — Componentes en `atoms/`, `molecules/` y `organisms/`.
+- `src/templates/` — `Layout` (HTML base, SEO, tema y transiciones), `Section` y `Container`.
+- `src/styles/global.css` — Sistema visual: tokens de color (azul rey), temas claro/oscuro, superficies *liquid glass* y animaciones.
+- `src/scripts/app.ts` — Interacción: tema, menú móvil, header y barra de lectura.
+- `public/` — Archivos servidos tal cual (CV, logos de clientes, GIFs y vídeos de proyectos).
 
-- `public/` — Archivos estáticos servidos tal cual (CV, favicon, GIFs y vídeos de los proyectos).
-- `src/` — Código fuente del sitio:
-	- `src/components/` — Componentes Astro organizados en `atoms/`, `molecules/` y `organisms/`.
-	- `src/templates/` — `Layout` (HTML base y SEO), `Section` y `Container` (estructura de las secciones).
-	- `src/pages/` — Páginas del sitio (`index.astro`, `404.astro` y los casos de estudio en `src/pages/project/[id].astro`).
-	- `src/content/projects/` — Un caso de estudio por carpeta (`index.md` + sus imágenes).
-	- `src/content.config.ts` — Esquema que valida los campos de cada caso de estudio.
-	- `src/data/works.js` — Experiencia laboral.
-	- `src/assets/` — Iconos, vectores y fotos.
-- `astro.config.mjs` — Configuración de Astro.
-- `package.json` — Dependencias y scripts.
+## Idiomas y tema
+
+- Español en `/` e inglés en `/en/`. El selector de idioma del menú lleva a la misma página en el otro idioma.
+- Para cambiar un texto de la interfaz, edítalo en `src/i18n/es.ts` y en `src/i18n/en.ts`.
+- El sitio arranca en modo oscuro; el botón del menú alterna a claro y la preferencia se guarda en el navegador.
 
 ## Añadir o editar proyectos
 
-Cada caso de estudio vive en `src/content/projects/<id>/index.md`; el nombre de la carpeta es la URL (`/project/<id>/`). Para añadir uno:
+Cada caso de estudio vive en `src/content/projects/<id>/`, con un archivo por idioma (`es.md` y `en.md`). El nombre de la carpeta es la URL (`/project/<id>/` y `/en/project/<id>/`). Para añadir uno:
 
-1. Copia una carpeta existente, renómbrala y edita el frontmatter de `index.md`. El campo `order` define la posición en la home.
-2. Los textos (`context`, `challenge`, `role`, `solution`, `description` de cada paso y `learnings`) aceptan Markdown: `**negrita**`, `*cursiva*`, `[enlace](https://...)` y listas con `- `. Los enlaces externos se abren solos en otra pestaña.
+1. Copia una carpeta existente, renómbrala y edita el frontmatter de `es.md` y `en.md`. El campo `order` define la posición en la home (el 1 aparece destacado).
+2. Los textos (`context`, `challenge`, `role`, `solution`, `description` de cada paso, `results` y `learnings`) aceptan Markdown: `**negrita**`, `*cursiva*`, `[enlace](https://...)` y listas con `- `. Si un texto contiene `: ` (dos puntos y espacio), ponlo entre comillas.
 3. Multimedia de cada paso del proceso (`media`):
 	- `type: image` — la imagen va dentro de la carpeta del proyecto (`src: ./imagen.webp`). Astro la optimiza y genera tamaños para móvil.
 	- `type: gif` o `type: video` — el archivo va en `public/projects/<id>/` (`src: /projects/<id>/archivo.gif`).
-4. Resultados (opcional): añade `results` con una lista de `metric` (p. ej. `"−40%"`) y `description`. Aparece la sección "Resultados" en el caso de estudio y el primer resultado con métrica se destaca en la tarjeta de la home:
+4. Resultados (opcional): una lista de `metric` y `description`. Aparece la sección "Resultados" y el primer resultado con métrica se destaca en la tarjeta de la home:
 
 	```yaml
 	results:
 	  - metric: "−40%"
-	    description: Tiempo de configuración de una nueva marca.
+	    description: tiempo para lanzar una marca nueva.
 	```
 
-5. Verifica en desarrollo con `npm run dev`. Si falta un campo o una imagen no existe, la build lo indica con un error.
+5. Verifica con `npm run dev`. Si falta un campo o una imagen no existe, la build lo indica con un error.
 
 ## Despliegue
 

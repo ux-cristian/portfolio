@@ -1,12 +1,15 @@
 ---
-import LogoHeader from '../../assets/vectors/logo_header.svg';
-import LogoFooter from '../../assets/vectors/logo_footer.svg';
+import LogoHeader from "../../assets/vectors/logo_header.svg";
+import LogoFooter from "../../assets/vectors/logo_footer.svg";
 
 interface Props {
   type?: "header" | "footer";
+  class?: string;
 }
 
-const { type="header" } = Astro.props;
+const { type = "header", class: className } = Astro.props;
 ---
 
-{type === "header" ? <LogoHeader class="w-fit h-4 md:h-5 xl:h-6 xl:mb-3"/> : <LogoFooter class="fit h-7 md:h-9 xl:h-12"/>}
+{type === "header"
+  ? <LogoHeader class:list={["h-4 w-auto md:h-5", className]} aria-hidden="true" />
+  : <LogoFooter class:list={["h-10 w-auto", className]} aria-hidden="true" />}

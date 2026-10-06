@@ -2,15 +2,29 @@
 import Section from "../../templates/Section.astro";
 import SectionHeading from "../molecules/SectionHeading.astro";
 import Project from "../molecules/Project.astro";
-import ProjectIcon from "../../assets/palette.svg";
 import { getProjects } from "../../lib/projects";
+import { useTranslations, type Lang } from "../../i18n";
 
-const projects = await getProjects();
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const [featured, ...rest] = await getProjects(lang);
 ---
 
-<Section id="projects" class="bg-[url('../assets/vectors/wireframe_vector.svg')] bg-cover bg-gray-100">
-  <div class="flex flex-col w-full items-center gap-8 md:gap-14 xl:gap-16">
-    <SectionHeading icon={ProjectIcon}>Proyectos</SectionHeading>
-    {projects.map((project) => <Project project={project} />)}
+<Section id="projects">
+  <div class="flex flex-col gap-12 md:gap-16">
+    <SectionHeading eyebrow={t.projects.eyebrow} lead={t.projects.lead}>{t.projects.title}</SectionHeading>
+
+    <div class="grid gap-6 md:grid-cols-2">
+      {featured && (
+        <div class="md:col-span-2">
+          <Project project={featured} lang={lang} featured />
+        </div>
+      )}
+      {rest.map((project) => <Project project={project} lang={lang} />)}
+    </div>
   </div>
 </Section>

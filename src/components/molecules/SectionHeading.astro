@@ -1,15 +1,28 @@
 ---
+import Tag from "../atoms/Tag.astro";
+
 interface Props {
-  icon: (props: astroHTML.JSX.SVGAttributes) => any;
+  eyebrow?: string;
+  lead?: string;
+  align?: "left" | "center";
+  as?: "h1" | "h2";
   class?: string;
 }
 
-const { icon: Icon, class: className } = Astro.props;
+const { eyebrow, lead, align = "left", as: Heading = "h2", class: className } = Astro.props;
 ---
 
-<div class:list={["flex w-full items-center gap-3.5 md:gap-5 xl:gap-6", className]}>
-  <Icon class="size-7 md:size-9 xl:size-12 fill-gray-800 shrink-0" aria-hidden="true" />
-  <h2 class="font-brand font-semibold w-full text-3xl md:text-4xl xl:text-5xl text-gray-800">
+<div
+  data-reveal
+  class:list={[
+    "flex max-w-3xl flex-col gap-4",
+    align === "center" ? "mx-auto items-center text-center" : "items-start",
+    className,
+  ]}
+>
+  {eyebrow && <Tag variant="accent">{eyebrow}</Tag>}
+  <Heading class="text-3xl font-bold tracking-tight text-balance md:text-5xl md:leading-[1.08]">
     <slot />
-  </h2>
+  </Heading>
+  {lead && <p class="text-lg text-pretty text-muted md:text-xl">{lead}</p>}
 </div>

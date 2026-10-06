@@ -1,20 +1,20 @@
 ---
 interface Props {
-    href: string;
-    label: string;
-    target?: '_blank' | '_self';
+  href: string;
+  label: string;
+  target?: "_blank" | "_self";
 }
 
-const { href, label, target = '_self'} = Astro.props;
+const { href, label, target = "_self" } = Astro.props;
 ---
 
 <a
-    href={href}
-    target={target}
-    rel={target === '_blank' ? 'noopener noreferrer' : undefined}
-    aria-label={label}
-    title={label}
-    class="flex p-3 rounded-full focus-visible:outline-2 focus-visible:outline-primary-50"
+  href={href}
+  target={target}
+  rel={target === "_blank" ? "noopener noreferrer" : undefined}
+  aria-label={label}
+  title={label}
+  class="glass flex size-11 items-center justify-center rounded-full text-muted transition-all duration-300 hover:-translate-y-0.5 hover:text-fg"
 >
-    <slot/>
+  <slot />
 </a>

@@ -1,65 +1,17 @@
 ---
-import Logo from "../atoms/Logo.astro";
+import Container from "../../templates/Container.astro";
 import NavBar from "../molecules/NavBar.astro";
+import type { Lang } from "../../i18n";
 
 interface Props {
-  navbarBehavior?: "navigationType" | "redirectionType";
+  lang: Lang;
 }
 
-const {navbarBehavior="navigationType"} = Astro.props;
+const { lang } = Astro.props;
 ---
 
-<header id="site-header" class="w-full">
-  <div class="bg-primary-100/20 rounded-full backdrop-blur-lg w-full px-5 md:pl-10 md:pr-6">
-    <div class="flex flex-wrap items-center justify-between py-4">
-      <a href="/" class="py-2" aria-label="Cristian Narváez, ir al inicio">
-        <Logo/>
-      </a>
-      <NavBar behavior={navbarBehavior}/>
-    </div>
-  </div>
+<header id="site-header" class="group/header sticky top-0 z-40 pt-3 md:pt-4">
+  <Container>
+    <NavBar lang={lang} />
+  </Container>
 </header>
-
-<button id="back-to-top" aria-label="Volver arriba" title="Volver arriba"
-  class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-primary-600 text-white shadow-lg flex items-center justify-center focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-primary-300"
->
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <path d="M12 19V6" />
-    <path d="M5 12l7-7 7 7" />
-  </svg>
-</button>
-
-<script>
-  const header = document.getElementById('site-header');
-  const backBtn = document.getElementById('back-to-top');
-
-  if (header && backBtn) {
-    let lastScroll = window.scrollY;
-    let ticking = false;
-
-    function onScroll() {
-      const current = window.scrollY;
-      const menuOpen = header!.querySelector('[aria-expanded="true"]');
-
-      // Oculta el header al bajar y lo muestra al subir (salvo con el menú abierto)
-      header!.classList.toggle('header-hidden', !menuOpen && current > lastScroll && current > 50);
-
-      // Muestra "volver arriba" a partir de 300px
-      backBtn!.classList.toggle('show', current > 300);
-
-      lastScroll = Math.max(0, current);
-      ticking = false;
-    }
-
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(onScroll);
-        ticking = true;
-      }
-    }, { passive: true });
-
-    backBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
-</script>
