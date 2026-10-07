@@ -10,9 +10,11 @@ interface Props {
   project: Project;
   lang: Lang;
   featured?: boolean;
+  /** Retraso de la animación de entrada, en ms */
+  delay?: number;
 }
 
-const { project, lang, featured = false } = Astro.props;
+const { project, lang, featured = false, delay = 0 } = Astro.props;
 const t = useTranslations(lang);
 const { title, category, description, cover, client, results } = project.data;
 const highlight = results?.find((result) => result.metric);
@@ -24,6 +26,7 @@ const href = localizePath(`/project/${project.slug}/`, lang);
      enfocar la tarjeta; en pantallas táctiles (sin hover) se ve siempre en color. -->
 <article
   data-reveal
+  style={`--reveal-delay: ${delay}ms`}
   class:list={[
     "group glass relative rounded-[2rem] p-2 transition-all duration-500 ease-[var(--ease-out-expo)]",
     "hover:-translate-y-1 hover:shadow-[0_30px_80px_-30px_rgb(0_0_0/0.6)]",

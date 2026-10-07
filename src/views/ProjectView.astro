@@ -166,7 +166,7 @@ const summary = [
         <div class="flex flex-col gap-12">
           <SectionHeading>{t.project.others}</SectionHeading>
           <div class="grid gap-6 md:grid-cols-2">
-            {otherProjects.map((other) => <Project project={other} lang={lang} />)}
+            {otherProjects.map((other, i) => <Project project={other} lang={lang} delay={(i % 2) * 120} />)}
           </div>
         </div>
       </Section>

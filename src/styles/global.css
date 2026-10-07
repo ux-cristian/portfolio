@@ -249,6 +249,13 @@ body {
     }
 }
 
+@keyframes reveal {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 48px, 0) scale(0.97);
+    }
+}
+
 @media (prefers-reduced-motion: no-preference) {
     /* Entrada al cargar (hero). --reveal-delay escalona los elementos */
     [data-animate] {
@@ -256,14 +263,17 @@ body {
         animation-delay: var(--reveal-delay, 0ms);
     }
 
-    /* Aparición ligada al scroll, solo con CSS. Donde el navegador no lo
-       soporta el contenido simplemente se muestra, nunca queda oculto. */
-    @supports (animation-timeline: view()) {
-        [data-reveal] {
-            animation: rise linear both;
-            animation-timeline: view();
-            animation-range: entry 0% entry 40%;
-        }
+    /* Aparición al hacer scroll. src/scripts/app.ts pone .reveal-ready en <html>
+       y marca cada [data-reveal] con .is-visible al entrar en pantalla. Sin JS
+       la clase no existe y el contenido se ve normal. "backwards" evita que la
+       animación siga controlando transform al terminar (hover de las tarjetas). */
+    .reveal-ready [data-reveal]:not(.is-visible) {
+        opacity: 0;
+    }
+
+    .reveal-ready [data-reveal].is-visible {
+        animation: reveal 1s var(--ease-out-expo) backwards;
+        animation-delay: var(--reveal-delay, 0ms);
     }
 
     /* Transición entre páginas (View Transitions) */

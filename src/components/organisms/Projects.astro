@@ -24,7 +24,7 @@ const [featured, ...rest] = await getProjects(lang);
           <Project project={featured} lang={lang} featured />
         </div>
       )}
-      {rest.map((project) => <Project project={project} lang={lang} />)}
+      {rest.map((project, i) => <Project project={project} lang={lang} delay={(i % 2) * 120} />)}
     </div>
   </div>
 </Section>

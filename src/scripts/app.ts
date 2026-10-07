@@ -101,9 +101,41 @@ window.addEventListener(
   { passive: true },
 );
 
+// --- Aparición al hacer scroll -------------------------------------------------
+// Solo se activa si el navegador lo soporta y no se pidió reducir movimiento;
+// en cualquier otro caso el contenido se muestra sin animación.
+let revealObserver: IntersectionObserver | undefined;
+
+function initReveal() {
+  revealObserver?.disconnect();
+  const root = document.documentElement;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (reduceMotion || !("IntersectionObserver" in window)) {
+    root.classList.remove("reveal-ready");
+    return;
+  }
+
+  revealObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver?.unobserve(entry.target);
+        }
+      }
+    },
+    { rootMargin: "0px 0px -12% 0px", threshold: 0.1 },
+  );
+
+  document.querySelectorAll("[data-reveal]:not(.is-visible)").forEach((el) => revealObserver!.observe(el));
+  root.classList.add("reveal-ready");
+}
+
 // --- Cada página ---------------------------------------------------------------
 document.addEventListener("astro:page-load", () => {
   setMenuOpen(false);
   lastScroll = window.scrollY;
   onScroll();
+  initReveal();
 });
