@@ -34,7 +34,7 @@ const chipPositions = [
         {t.hero.badge}
       </span>
 
-      <h1 data-animate style="--reveal-delay: 80ms" class="text-4xl font-extrabold tracking-tight text-balance sm:text-5xl lg:text-6xl lg:leading-[1.04]">
+      <h1 data-animate style="--reveal-delay: 80ms" class="font-display text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl lg:leading-[1.08]">
         <span class="text-gradient">{t.hero.title}</span>
       </h1>
 
@@ -63,7 +63,8 @@ const chipPositions = [
     <!-- Retrato con etiquetas flotantes. El marco no usa backdrop-filter y la tarjeta
          del nombre es hermana (no hija) del marco: Chrome deja de pintar la foto cuando
          hay backdrop-filter anidado dentro de un contenedor animado. -->
-    <div data-animate style="--reveal-delay: 200ms" class="relative mx-auto w-full max-w-sm lg:max-w-none">
+    <!-- Sin animación de entrada aquí: combinada con los efectos glass, Chrome a veces no pinta la foto -->
+    <div class="relative mx-auto w-full max-w-sm lg:max-w-none">
       <div
         class="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] border border-[var(--glass-border)] bg-gradient-to-b from-royal-400/15 to-royal-600/30 shadow-[inset_0_1px_0_var(--glass-highlight),var(--glass-shadow)]"
       >

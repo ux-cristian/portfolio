@@ -33,9 +33,8 @@ export const en: Dictionary = {
 
   hero: {
     badge: "Available for freelance projects",
-    title: "I design digital products your users understand and your team can build.",
-    lead:
-      "I'm Cristian, a UX Designer and Systems Engineer. I help startups and product teams turn confusing flows into clear experiences, with documented, developer-ready designs.",
+    title: "I design clear products, ready to build.",
+    lead: "UX Designer and Systems Engineer. I help startups and product teams create experiences that are easy to use and easy to build.",
     primaryCta: "Let's talk about your project",
     secondaryCta: "See case studies",
     role: "UX Designer · Systems Engineer",

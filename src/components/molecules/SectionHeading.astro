@@ -21,7 +21,7 @@ const { eyebrow, lead, align = "left", as: Heading = "h2", class: className } = 
   ]}
 >
   {eyebrow && <Tag variant="accent">{eyebrow}</Tag>}
-  <Heading class="text-3xl font-bold tracking-tight text-balance md:text-5xl md:leading-[1.08]">
+  <Heading class="font-display text-3xl font-semibold tracking-tight text-balance md:text-5xl md:leading-[1.08]">
     <slot />
   </Heading>
   {lead && <p class="text-lg text-pretty text-muted md:text-xl">{lead}</p>}

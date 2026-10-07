@@ -31,9 +31,8 @@ export const es = {
 
   hero: {
     badge: "Disponible para proyectos freelance",
-    title: "Diseño productos digitales que tus usuarios entienden y tu equipo puede construir.",
-    lead:
-      "Soy Cristian, Diseñador UX e Ingeniero de Sistemas. Ayudo a startups y equipos de producto a convertir flujos confusos en experiencias claras, con diseños documentados y listos para desarrollo.",
+    title: "Diseño productos claros y listos para construir.",
+    lead: "Diseñador UX e Ingeniero de Sistemas. Ayudo a startups y equipos de producto a crear experiencias fáciles de usar y de desarrollar.",
     primaryCta: "Hablemos de tu proyecto",
     secondaryCta: "Ver casos de estudio",
     role: "Diseñador UX · Ingeniero de Sistemas",
