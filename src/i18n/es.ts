@@ -130,7 +130,7 @@ export const es = {
       "Esa doble formación es mi diferencial: entiendo las restricciones técnicas desde el primer boceto, así que lo que diseño se puede construir y tu equipo recibe archivos que no tiene que interpretar.",
       "Me considero un eterno aprendiz: leo, escucho podcasts y converso con curiosidad genuina. Así aprendí a tocar la guitarra, y así sigo aprendiendo a diseñar.",
     ],
-    photoAlt: "Retrato de Cristian Narváez",
+    photoAlt: "Cristian Narváez sonriendo al aire libre, junto a un humedal",
     skillsTitle: "Habilidades",
     skills: [
       "Design thinking",

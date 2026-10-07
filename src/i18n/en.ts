@@ -132,7 +132,7 @@ export const en: Dictionary = {
       "That dual background is what sets me apart: I understand technical constraints from the very first sketch, so what I design can actually be built and your team gets files they don't have to interpret.",
       "I consider myself a lifelong learner: I read, listen to podcasts and talk to people with genuine curiosity. That's how I learned to play the guitar, and how I keep learning to design.",
     ],
-    photoAlt: "Portrait of Cristian Narváez",
+    photoAlt: "Cristian Narváez smiling outdoors by a wetland",
     skillsTitle: "Skills",
     skills: [
       "Design thinking",

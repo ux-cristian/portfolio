@@ -1,10 +1,13 @@
 ---
+import { Image } from "astro:assets";
 import Section from "../../templates/Section.astro";
 import SectionHeading from "../molecules/SectionHeading.astro";
+import MediaFrame from "../molecules/MediaFrame.astro";
 import Experience from "../molecules/Experience.astro";
 import Button from "../atoms/Button.astro";
 import Tag from "../atoms/Tag.astro";
 import Icon from "../atoms/Icon.astro";
+import aboutPhoto from "../../assets/about_photo.webp";
 import { experience } from "../../data/experience";
 import { site } from "../../config/site";
 import { useTranslations, type Lang } from "../../i18n";
@@ -18,25 +21,46 @@ const t = useTranslations(lang);
 ---
 
 <Section id="about">
-  <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-    <div class="flex flex-col gap-8">
-      <SectionHeading eyebrow={t.about.eyebrow}>{t.about.title}</SectionHeading>
+  <div class="flex flex-col gap-12 lg:gap-16">
+    <div class="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
+      <div class="flex flex-col gap-8">
+        <SectionHeading eyebrow={t.about.eyebrow}>{t.about.title}</SectionHeading>
 
-      <div data-reveal class="flex flex-col gap-4 text-lg leading-relaxed text-pretty text-muted">
-        {t.about.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        <div data-reveal class="flex flex-col gap-4 text-lg leading-relaxed text-pretty text-muted">
+          {t.about.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+
+        <div data-reveal class="flex flex-col gap-3">
+          <h3 class="text-sm font-semibold tracking-wide text-subtle uppercase">{t.about.skillsTitle}</h3>
+          <ul class="flex flex-wrap gap-2">
+            {t.about.skills.map((skill) => <li class="flex"><Tag>{skill}</Tag></li>)}
+          </ul>
+        </div>
       </div>
 
-      <div data-reveal class="flex flex-col gap-3">
-        <h3 class="text-sm font-semibold tracking-wide text-subtle uppercase">{t.about.skillsTitle}</h3>
-        <ul class="flex flex-wrap gap-2">
-          {t.about.skills.map((skill) => <li class="flex"><Tag>{skill}</Tag></li>)}
-        </ul>
+      <!-- Foto personal, siempre a color -->
+      <div data-reveal class="mx-auto w-full max-w-md lg:max-w-none">
+        <MediaFrame class="rotate-[1.5deg] transition-transform duration-700 ease-[var(--ease-out-expo)] hover:rotate-0" innerClass="aspect-[4/5]">
+          <Image
+            src={aboutPhoto}
+            alt={t.about.photoAlt}
+            widths={[400, 640, 900]}
+            sizes="(min-width: 1024px) 420px, 90vw"
+            class="size-full object-cover"
+          />
+        </MediaFrame>
       </div>
     </div>
 
-    <div data-reveal style="--reveal-delay: 120ms" class="glass flex h-fit flex-col gap-8 rounded-[2rem] p-7 md:p-9">
-      <h3 class="text-xl font-bold tracking-tight">{t.about.experienceTitle}</h3>
-      <ol>
+    <div data-reveal class="glass flex flex-col gap-8 rounded-[2rem] p-7 md:p-9">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <h3 class="text-xl font-bold tracking-tight">{t.about.experienceTitle}</h3>
+        <Button href={site.cv} variant="glass" download>
+          <Icon name="download" class="size-4" />
+          {t.about.cv}
+        </Button>
+      </div>
+      <ol class="grid gap-x-8 md:grid-cols-3">
         {experience.map((job) => (
           <Experience
             title={job.title[lang]}
@@ -48,10 +72,6 @@ const t = useTranslations(lang);
           />
         ))}
       </ol>
-      <Button href={site.cv} variant="glass" download>
-        <Icon name="download" class="size-4" />
-        {t.about.cv}
-      </Button>
     </div>
   </div>
 </Section>

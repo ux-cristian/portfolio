@@ -13,7 +13,7 @@ interface Props {
 const { title, company, url, period, description, newTabLabel } = Astro.props;
 ---
 
-<li class="relative grid gap-1 border-l border-line pb-8 pl-6 last:pb-0">
+<li class="relative grid gap-1 border-l border-line pb-8 pl-6 last:pb-0 md:pb-0">
   <span class="absolute top-1.5 -left-[5px] size-2.5 rounded-full bg-accent ring-4 ring-accent-soft" aria-hidden="true"></span>
   <span class="text-xs font-semibold tracking-wide text-subtle uppercase">{period}</span>
   <h4 class="font-bold">
