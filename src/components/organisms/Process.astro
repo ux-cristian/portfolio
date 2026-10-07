@@ -17,11 +17,11 @@ const t = useTranslations(lang);
 
     <div class="relative">
     <!-- Línea que conecta los pasos en escritorio -->
-    <div class="absolute top-11 right-[12%] left-[12%] hidden h-px bg-gradient-to-r from-transparent via-royal-400/50 to-transparent lg:block" aria-hidden="true"></div>
+    <div class="absolute top-11 right-[12%] left-[12%] hidden h-px bg-gradient-to-r from-transparent via-ink-400/50 to-transparent lg:block" aria-hidden="true"></div>
     <ol class="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
       {t.process.steps.map((step, i) => (
         <li data-reveal style={`--reveal-delay: ${i * 100}ms`} class="glass relative flex flex-col gap-4 rounded-[2rem] p-7">
-          <span class="flex size-9 items-center justify-center rounded-full bg-gradient-to-b from-royal-500 to-royal-700 text-sm font-bold text-white shadow-[0_0_0_6px_rgb(39_65_234/0.15)]">
+          <span class="flex size-9 items-center justify-center rounded-full solid text-sm font-bold">
             {i + 1}
           </span>
           <h3 class="text-lg font-bold tracking-tight">{step.title}</h3>

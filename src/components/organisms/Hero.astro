@@ -66,9 +66,9 @@ const chipPositions = [
     <!-- Sin animación de entrada aquí: combinada con los efectos glass, Chrome a veces no pinta la foto -->
     <div class="relative mx-auto w-full max-w-sm lg:max-w-none">
       <div
-        class="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] border border-[var(--glass-border)] bg-gradient-to-b from-royal-400/15 to-royal-600/30 shadow-[inset_0_1px_0_var(--glass-highlight),var(--glass-shadow)]"
+        class="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] border border-[var(--glass-border)] bg-gradient-to-b from-ink-400/10 to-ink-700/30 shadow-[inset_0_1px_0_var(--glass-highlight),var(--glass-shadow)]"
       >
-        <div class="absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_100%,rgb(61_95_245/0.65),transparent_70%)]" aria-hidden="true"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_100%,var(--glow),transparent_70%)]" aria-hidden="true"></div>
         <Image
           src={portrait}
           alt={t.hero.photoAlt}
