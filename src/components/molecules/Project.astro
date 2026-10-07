@@ -19,7 +19,9 @@ const highlight = results?.find((result) => result.metric);
 const href = localizePath(`/project/${project.slug}/`, lang);
 ---
 
-<!-- Toda la tarjeta es clicable gracias al ::after del enlace del título -->
+<!-- Toda la tarjeta es clicable gracias al ::after del enlace del título.
+     La portada se ve en blanco y negro y recupera el color al pasar el ratón o
+     enfocar la tarjeta; en pantallas táctiles (sin hover) se ve siempre en color. -->
 <article
   data-reveal
   class:list={[
@@ -38,7 +40,7 @@ const href = localizePath(`/project/${project.slug}/`, lang);
         alt={`${t.projects.coverAlt} ${title}`}
         widths={[640, 960, 1280, 1920]}
         sizes={featured ? "(min-width: 1024px) 640px, 100vw" : "(min-width: 768px) 560px, 100vw"}
-        class="absolute inset-0 size-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.04]"
+        class="absolute inset-0 size-full object-cover grayscale transition-[transform,filter] duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.04] group-hover:grayscale-0 group-has-[a:focus-visible]:grayscale-0 [@media(hover:none)]:grayscale-0"
       />
       <div class="absolute inset-0 bg-gradient-to-t from-ink-950/40 to-transparent"></div>
     </div>
