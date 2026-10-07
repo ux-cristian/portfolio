@@ -57,10 +57,10 @@
     --line: rgb(255 255 255 / 0.1);
     --surface: #161618;
 
-    /* Elementos sólidos (botón principal, iconos, números) */
-    --solid-bg: linear-gradient(180deg, #ffffff, #d4d4d8);
-    --solid-fg: #0a0a0b;
-    --solid-shadow: 0 10px 30px -12px rgb(255 255 255 / 0.3);
+    /* Elementos sólidos (botón principal, iconos, números): dorado */
+    --solid-bg: linear-gradient(135deg, #f8e7b0 0%, #e2b85a 45%, #b8862b 100%);
+    --solid-fg: #1a1407;
+    --solid-shadow: 0 10px 30px -12px rgb(226 184 90 / 0.55);
 
     --glass-bg: linear-gradient(135deg, rgb(255 255 255 / 0.1), rgb(255 255 255 / 0.03));
     --glass-bg-strong: linear-gradient(135deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.05));
@@ -86,9 +86,9 @@
     --line: rgb(0 0 0 / 0.1);
     --surface: #ffffff;
 
-    --solid-bg: linear-gradient(180deg, #3a3a3f, #0c0c0e);
-    --solid-fg: #ffffff;
-    --solid-shadow: 0 10px 30px -12px rgb(0 0 0 / 0.5);
+    --solid-bg: linear-gradient(135deg, #f3dc95 0%, #d9a944 45%, #a8771f 100%);
+    --solid-fg: #1a1407;
+    --solid-shadow: 0 10px 30px -12px rgb(168 119 31 / 0.55);
 
     --glass-bg: linear-gradient(135deg, rgb(255 255 255 / 0.75), rgb(255 255 255 / 0.45));
     --glass-bg-strong: linear-gradient(135deg, rgb(255 255 255 / 0.9), rgb(255 255 255 / 0.65));
